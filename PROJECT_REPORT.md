@@ -41,7 +41,7 @@ This project implements a normalized relational SQL database operating as a **Di
 
 ---
 
-## 4. Relational Database Design (Based on Slide 13 ER Diagram)
+## 4. Relational Database Design & Entity-Relationship Architecture
 
 ### 4.1 Entities and Attributes
 

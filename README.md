@@ -13,7 +13,9 @@
 
 This project implements a full-stack, normalized relational SQL-based **Digital Product Passport (DPP)** system for consumer electronics lifecycle traceability and e-waste circularity management. 
 
-It satisfies the exact requirements and entity-relationship architecture presented in the project PDF, tracking physical electronics from **Manufacturing ➔ Retail Purchase & Ownership ➔ Maintenance & Service ➔ Secondary Resale/Transfers ➔ End-of-Life Decommissioning & Recycling (Parts Salvage & Critical Material Recovery)**.
+It implements a full-stack, normalized relational SQL-based **Digital Product Passport (DPP)** system for consumer electronics lifecycle traceability and e-waste circularity management. 
+
+The system tracks physical electronics from **Manufacturing ➔ Retail Purchase & Ownership ➔ Maintenance & Service ➔ Secondary Resale/Transfers ➔ End-of-Life Decommissioning & Recycling (Parts Salvage & Critical Material Recovery)**.
 
 ---
 
@@ -36,9 +38,9 @@ Open your browser and navigate to **`http://localhost:3000`**.
 
 ---
 
-## 🗄️ Relational Database Architecture (Based on Slide 13 ER Diagram)
+## 🗄️ Relational Database Architecture & ER Model
 
-The database strictly implements the ER diagram from Slide 13 of the presentation:
+The database implements a normalized 3NF Entity-Relationship (ER) model designed for electronics circularity:
 
 1. **`STAKEHOLDER`** (Generalization / ISA Hierarchy)
    - Specialized into `MANUFACTURER`, `OWNER`, `SERVICE_CENTRE`, and `RECYCLING_FACILITY`.
@@ -130,7 +132,7 @@ Built specifically for coursework BACSE202 evaluation:
 dpp-ewaste-traceability/
 ├── db.js                   # Database layer using native node:sqlite with foreign keys & transactions
 ├── server.js               # Express API backend with REST endpoints & QR generation
-├── schema.sql              # Normalized 3NF DDL schema strictly matching Slide 13 ER Diagram
+├── schema.sql              # Normalized 3NF DDL schema defining all tables and constraints
 ├── seed.sql                # Comprehensive realistic dataset of models, units, stakeholders, materials
 ├── dpp_database.sqlite     # Live SQLite database file
 ├── package.json            # Node project configuration
