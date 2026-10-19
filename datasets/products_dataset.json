@@ -1,0 +1,83 @@
+[
+  {
+    "productId": "PROD-LOQ-001",
+    "modelId": "MOD-LEN-LOQ15",
+    "modelName": "Lenovo LOQ 15 Gaming Laptop",
+    "serialNumber": "LOQ-SN-2024-00188",
+    "productType": "Laptop",
+    "manufacturer": "Lenovo Group Ltd.",
+    "countryOfOrigin": "India / China",
+    "manufacturingDate": "2024-01-15",
+    "status": "In Use",
+    "stateOfHealth": 94,
+    "currentOwner": "Aditya Priyan C",
+    "carbonFootprintKg": 285.5,
+    "energyRating": "Energy Star 8.0",
+    "components": [
+      { "id": "CMP-LOQ01-BAT", "type": "60Wh 4-Cell Li-ion Battery", "status": "Active" },
+      { "id": "CMP-LOQ01-MBD", "type": "Intel Core i7-13620H Motherboard", "status": "Active" },
+      { "id": "CMP-LOQ01-DSP", "type": "15.6\" FHD 144Hz IPS Display", "status": "Active" },
+      { "id": "CMP-LOQ01-RAM", "type": "16GB DDR5 5200MHz RAM (Upgraded)", "status": "Active" },
+      { "id": "CMP-LOQ01-SSD", "type": "512GB PCIe NVMe M.2 SSD", "status": "Active" },
+      { "id": "CMP-LOQ01-CAS", "type": "Polycarbonate + Al Alloy Chassis", "status": "Active" }
+    ],
+    "repairsCount": 1
+  },
+  {
+    "productId": "PROD-LOQ-002",
+    "modelId": "MOD-LEN-LOQ15",
+    "modelName": "Lenovo LOQ 15 Gaming Laptop",
+    "serialNumber": "LOQ-SN-2023-00912",
+    "productType": "Laptop",
+    "manufacturer": "Lenovo Group Ltd.",
+    "countryOfOrigin": "India / China",
+    "manufacturingDate": "2023-03-10",
+    "status": "Recycled",
+    "stateOfHealth": 0,
+    "currentOwner": null,
+    "carbonFootprintKg": 285.5,
+    "energyRating": "Energy Star 8.0",
+    "recyclingFacility": "EcoRecycle Solutions Hub",
+    "salvagedComponents": [
+      { "id": "CMP-LOQ02-RAM", "type": "16GB DDR5 5200MHz RAM", "grade": "Grade A (Excellent)" },
+      { "id": "CMP-LOQ02-SSD", "type": "1TB PCIe NVMe SSD", "grade": "Grade B (Good)" }
+    ],
+    "recoveredMaterials": [
+      { "material": "Copper", "quantity": 64.2, "unit": "g", "purity": 99.4 },
+      { "material": "Gold", "quantity": 0.41, "unit": "g", "purity": 99.8 },
+      { "material": "Lithium", "quantity": 35.0, "unit": "g", "purity": 94.2 },
+      { "material": "Cobalt", "quantity": 15.1, "unit": "g", "purity": 96.5 },
+      { "material": "Aluminum", "quantity": 380.0, "unit": "g", "purity": 98.0 }
+    ]
+  },
+  {
+    "productId": "PROD-IPH-001",
+    "modelId": "MOD-APL-IPH15",
+    "modelName": "Apple iPhone 15 Pro",
+    "serialNumber": "APL-IPH15-88319",
+    "productType": "Smartphone",
+    "manufacturer": "Apple Inc.",
+    "countryOfOrigin": "United States",
+    "manufacturingDate": "2023-11-20",
+    "status": "In Use",
+    "stateOfHealth": 98,
+    "currentOwner": "Amaan Abdullah Karuthedath",
+    "carbonFootprintKg": 66.0,
+    "energyRating": "Tier 1 Ultra Efficient"
+  },
+  {
+    "productId": "PROD-DEL-001",
+    "modelId": "MOD-DEL-XPS13",
+    "modelName": "Dell XPS 13 Plus Ultrabook",
+    "serialNumber": "DEL-XPS-771239",
+    "productType": "Laptop",
+    "manufacturer": "Dell Technologies",
+    "countryOfOrigin": "United States",
+    "manufacturingDate": "2023-08-14",
+    "status": "In Use",
+    "stateOfHealth": 91,
+    "currentOwner": "VIT School of Computing Science (SCOPE)",
+    "carbonFootprintKg": 220.0,
+    "energyRating": "EPEAT Gold Certified"
+  }
+]

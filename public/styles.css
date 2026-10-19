@@ -1,0 +1,103 @@
+/* Custom CSS for Digital Product Passport System */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #334155;
+}
+
+/* Tab buttons */
+.tab-btn {
+    color: #94a3b8;
+    background-color: transparent;
+}
+.tab-btn:hover {
+    color: #ffffff;
+    background-color: rgba(30, 41, 59, 0.7);
+}
+.tab-btn.active {
+    color: #ffffff;
+    background-color: #059669;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+
+/* Admin sub-buttons */
+.admin-sub-btn {
+    color: #94a3b8;
+    background-color: #1e293b;
+}
+.admin-sub-btn:hover {
+    color: #ffffff;
+    background-color: #334155;
+}
+.admin-sub-btn.active {
+    color: #ffffff;
+    background-color: #059669;
+}
+
+/* Timeline vertical line */
+.timeline-track::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    left: 20px;
+    width: 2px;
+    background: linear-gradient(to bottom, #10b981 0%, #0284c7 50%, #8b5cf6 100%);
+    z-index: 0;
+}
+
+@media (min-width: 768px) {
+    .timeline-track-md::before {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Print layout for Digital Product Passport certificate */
+@media print {
+    header, footer, nav, button, .no-print {
+        display: none !important;
+    }
+    body {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+    .tab-content {
+        display: none !important;
+    }
+    #tab-passport {
+        display: block !important;
+    }
+    .bg-slate-900, .bg-slate-950 {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+        border-color: #e2e8f0 !important;
+    }
+    .text-white {
+        color: #0f172a !important;
+    }
+    .text-slate-400, .text-slate-500 {
+        color: #475569 !important;
+    }
+}

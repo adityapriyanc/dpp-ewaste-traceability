@@ -1,0 +1,90 @@
+[
+  {
+    "materialId": "MAT-LIT-01",
+    "name": "Lithium (Li-ion active material)",
+    "recyclability": 92.5,
+    "hazardous": 1,
+    "rohsCompliant": 1,
+    "criticalRawMaterial": true
+  },
+  {
+    "materialId": "MAT-COB-02",
+    "name": "Cobalt (Cathode grade)",
+    "recyclability": 96.0,
+    "hazardous": 1,
+    "rohsCompliant": 1,
+    "criticalRawMaterial": true
+  },
+  {
+    "materialId": "MAT-COP-03",
+    "name": "High-Purity Copper (Wiring & PCB traces)",
+    "recyclability": 98.5,
+    "hazardous": 0,
+    "rohsCompliant": 1,
+    "criticalRawMaterial": false
+  },
+  {
+    "materialId": "MAT-GLD-04",
+    "name": "Recycled Gold (Contact plating & pins)",
+    "recyclability": 99.8,
+    "hazardous": 0,
+    "rohsCompliant": 1,
+    "criticalRawMaterial": true
+  },
+  {
+    "materialId": "MAT-SLV-05",
+    "name": "Industrial Silver (Solder & conductors)",
+    "recyclability": 99.0,
+    "hazardous": 0,
+    "rohsCompliant": 1,
+    "criticalRawMaterial": true
+  },
+  {
+    "materialId": "MAT-ALU-06",
+    "name": "Aerospace Grade Aluminum (Enclosure)",
+    "recyclability": 95.0,
+    "hazardous": 0,
+    "rohsCompliant": 1,
+    "criticalRawMaterial": false
+  },
+  {
+    "materialId": "MAT-REE-07",
+    "name": "Rare Earth Elements (Neodymium NdFeB)",
+    "recyclability": 82.0,
+    "hazardous": 0,
+    "rohsCompliant": 1,
+    "criticalRawMaterial": true
+  },
+  {
+    "materialId": "MAT-SIL-08",
+    "name": "Electronic Grade Silicon (Chips/Wafer)",
+    "recyclability": 88.0,
+    "hazardous": 0,
+    "rohsCompliant": 1,
+    "criticalRawMaterial": false
+  },
+  {
+    "materialId": "MAT-GLS-09",
+    "name": "Aluminosilicate Display Glass",
+    "recyclability": 75.0,
+    "hazardous": 0,
+    "rohsCompliant": 1,
+    "criticalRawMaterial": false
+  },
+  {
+    "materialId": "MAT-PC-10",
+    "name": "Post-Consumer Recycled Polycarbonate (Plastic)",
+    "recyclability": 85.0,
+    "hazardous": 0,
+    "rohsCompliant": 1,
+    "criticalRawMaterial": false
+  },
+  {
+    "materialId": "MAT-LEA-11",
+    "name": "Lead Residue (Monitored heavy metal)",
+    "recyclability": 40.0,
+    "hazardous": 1,
+    "rohsCompliant": 0,
+    "criticalRawMaterial": false
+  }
+]
