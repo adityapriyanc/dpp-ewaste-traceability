@@ -1,5 +1,5 @@
 // ============================================================================
-// DIGITAL PRODUCT PASSPORT (DPP) - HUMANIZED INTERACTION CONTROLLER
+// DIGITAL PRODUCT PASSPORT (DPP) - SIMPLIFIED & HUMANIZED CONTROLLER
 // Course: BACSE202 - Database Systems | Vellore Institute of Technology (VIT)
 // Team: Aditya Priyan C (25BCE0662), Amaan Abdullah Karuthedath (25BCE2701)
 // Faculty Guide: Prof. Saritha Murali
@@ -9,7 +9,7 @@ let currentProducts = [];
 let materialsChartInstance = null;
 let statusChartInstance = null;
 let debounceTimer = null;
-let currentPassportViewMode = 'story'; // 'story' | 'technical'
+let passportActiveSubtab = 'story'; // 'story' | 'hardware' | 'repairs' | 'recovery'
 let activePassportData = null;
 
 // Human Device Metadata, Photos, and Empathy Content
@@ -362,7 +362,7 @@ function switchAdminSubtab(subId) {
 }
 
 // ----------------------------------------------------------------------------
-// PRODUCT CATALOGUE (HUMANIZED)
+// PRODUCT CATALOGUE (SIMPLIFIED & HUMANIZED)
 // ----------------------------------------------------------------------------
 async function loadCatalogue() {
     const grid = document.getElementById('productsGrid');
@@ -401,35 +401,28 @@ async function loadCatalogue() {
             const persona = ITEM_HUMAN_PERSONAS[p.Product_ID] || {
                 nickname: `${p.Model_Name} Unit`,
                 tag: p.Status,
-                tagColor: 'bg-slate-800 text-slate-300 border-slate-700',
                 avatarInitials: 'DPP',
                 avatarBg: 'bg-emerald-600'
             };
 
             // Human Status Badge
-            let statusPill = '<span class="px-2.5 py-1 text-xs rounded-full bg-emerald-950 text-emerald-300 border border-emerald-700 font-semibold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> In Active Use</span>';
+            let statusPill = '<span class="px-2.5 py-0.5 text-[11px] rounded-full bg-emerald-950 text-emerald-300 border border-emerald-700 font-semibold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> In Use</span>';
             if (p.Status === 'Under Repair') {
-                statusPill = '<span class="px-2.5 py-1 text-xs rounded-full bg-amber-950 text-amber-300 border border-amber-700 font-semibold flex items-center gap-1.5"><i class="fa-solid fa-wrench text-[10px]"></i> In Service Hub</span>';
+                statusPill = '<span class="px-2.5 py-0.5 text-[11px] rounded-full bg-amber-950 text-amber-300 border border-amber-700 font-semibold flex items-center gap-1.5"><i class="fa-solid fa-wrench text-[9px]"></i> In Service</span>';
             } else if (p.Status === 'Recycled') {
-                statusPill = '<span class="px-2.5 py-1 text-xs rounded-full bg-sky-950 text-sky-300 border border-sky-700 font-semibold flex items-center gap-1.5"><i class="fa-solid fa-recycle text-[10px]"></i> Reclaimed & Recycled</span>';
+                statusPill = '<span class="px-2.5 py-0.5 text-[11px] rounded-full bg-sky-950 text-sky-300 border border-sky-700 font-semibold flex items-center gap-1.5"><i class="fa-solid fa-recycle text-[9px]"></i> Reclaimed</span>';
             }
 
-            // Human Health Message
-            let healthVerdict = "✨ Excellent condition — ready for years more use";
-            let healthBarColor = "from-emerald-500 to-teal-400";
-            if (p.State_of_Health < 85 && p.State_of_Health > 0) {
-                healthVerdict = "🔧 Functional — Battery or thermal refresh recommended";
-                healthBarColor = "from-amber-500 to-yellow-400";
-            } else if (p.State_of_Health === 0) {
-                healthVerdict = "♻️ End-of-Life: Working parts salvaged, raw metals recovered";
-                healthBarColor = "from-sky-500 to-blue-400";
-            }
+            // Health color
+            let healthColor = 'text-emerald-400';
+            if (p.State_of_Health < 85 && p.State_of_Health > 0) healthColor = 'text-amber-400';
+            if (p.State_of_Health === 0) healthColor = 'text-sky-400';
 
             return `
-                <div class="device-card bg-slate-900 border border-slate-800 hover:border-emerald-500/50 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-emerald-950/20 transition duration-300 flex flex-col justify-between group">
+                <div class="device-card bg-slate-900 border border-slate-800 hover:border-emerald-500/50 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 flex flex-col justify-between group">
                     <div>
-                        <!-- Device Photo Header with Overlay Badges -->
-                        <div class="relative h-48 w-full bg-slate-950 overflow-hidden">
+                        <!-- Device Photo Header -->
+                        <div class="relative h-44 w-full bg-slate-950 overflow-hidden">
                             <img src="${visual.image}" alt="${p.Model_Name}" 
                                  class="device-img-thumb w-full h-full object-cover opacity-85 group-hover:opacity-100 transition duration-500"
                                  onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=700&q=80'">
@@ -437,77 +430,58 @@ async function loadCatalogue() {
                             
                             <!-- Badges over photo -->
                             <div class="absolute top-3 left-3 right-3 flex justify-between items-center">
-                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-950/80 backdrop-blur-md text-slate-300 border border-slate-700">
+                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-950/85 backdrop-blur-md text-slate-300 border border-slate-700">
                                     ${p.Product_Type}
                                 </span>
                                 ${statusPill}
                             </div>
 
-                            <!-- Human Nickname banner -->
+                            <!-- Nickname & Title -->
                             <div class="absolute bottom-3 left-3 right-3">
-                                <div class="text-xs font-semibold text-emerald-300 drop-shadow">${persona.nickname}</div>
-                                <h3 class="text-base font-bold text-white leading-tight drop-shadow">${p.Model_Name}</h3>
+                                <div class="text-[11px] font-semibold text-emerald-300 drop-shadow">${persona.nickname}</div>
+                                <h3 class="text-base font-bold text-white leading-tight drop-shadow truncate">${p.Model_Name}</h3>
                             </div>
                         </div>
 
                         <!-- Card Body Content -->
-                        <div class="p-5 space-y-4">
+                        <div class="p-5 space-y-3.5">
                             
-                            <!-- Identifiers Strip -->
-                            <div class="bg-slate-950 rounded-2xl p-3 border border-slate-800/80 space-y-1.5 text-xs font-mono">
-                                <div class="flex justify-between items-center">
-                                    <span class="text-slate-500 text-[11px] font-sans">Passport ID:</span>
-                                    <span class="text-emerald-400 font-bold">${p.Product_ID}</span>
+                            <!-- Identifiers -->
+                            <div class="bg-slate-950 rounded-2xl p-2.5 border border-slate-800/80 flex justify-between items-center text-xs font-mono">
+                                <span class="text-slate-400 font-sans text-[11px]">ID: <strong class="text-emerald-400 font-mono">${p.Product_ID}</strong></span>
+                                <span class="text-slate-400 font-sans text-[11px]">S/N: <span class="text-slate-300 font-mono">${p.Serial_Number}</span></span>
+                            </div>
+
+                            <!-- Custody -->
+                            <div class="flex items-center space-x-2.5 text-xs">
+                                <div class="w-7 h-7 rounded-full ${persona.avatarBg} text-white font-bold flex items-center justify-center text-[10px] flex-shrink-0">
+                                    ${persona.avatarInitials}
                                 </div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-slate-500 text-[11px] font-sans">Serial Number:</span>
-                                    <span class="text-slate-300">${p.Serial_Number}</span>
+                                <div class="truncate">
+                                    <span class="text-slate-500 text-[10px] block">Current Custody</span>
+                                    <span class="text-slate-200 font-medium">${p.Owner_Name || '<span class="text-emerald-400">EcoRecycle Depot</span>'}</span>
                                 </div>
                             </div>
 
-                            <!-- Human Story Snapshot -->
-                            <div class="space-y-2 text-xs">
-                                <div class="flex items-center space-x-2.5">
-                                    <div class="w-7 h-7 rounded-full ${persona.avatarBg} text-white font-bold flex items-center justify-center text-[10px] flex-shrink-0 shadow-sm">
-                                        ${persona.avatarInitials}
-                                    </div>
-                                    <div class="truncate">
-                                        <span class="text-slate-400 text-[11px] block">Current Custody</span>
-                                        <span class="text-white font-medium">${p.Owner_Name || '<span class="text-emerald-400">EcoRecycle Recovery Depot</span>'}</span>
-                                    </div>
-                                </div>
-
-                                <div class="flex justify-between items-center pt-1 text-[11px] text-slate-400 border-t border-slate-800/60">
-                                    <span>Origin: <strong class="text-slate-300">${p.Manufacturer_Name}</strong></span>
-                                    <span class="text-emerald-400 font-semibold">${p.Carbon_Footprint} kg CO2e</span>
-                                </div>
-                            </div>
-
-                            <!-- Health Score Indicator -->
+                            <!-- Health Score -->
                             <div class="pt-2 border-t border-slate-800/60">
-                                <div class="flex justify-between items-center text-xs mb-1.5">
-                                    <span class="text-slate-400 font-medium">Device Health Rating</span>
-                                    <span class="font-extrabold font-mono ${p.State_of_Health >= 85 ? 'text-emerald-400' : p.State_of_Health > 0 ? 'text-amber-400' : 'text-sky-400'}">
-                                        ${p.State_of_Health}%
-                                    </span>
+                                <div class="flex justify-between items-center text-xs mb-1">
+                                    <span class="text-slate-400 text-[11px]">Device Health</span>
+                                    <span class="font-bold font-mono ${healthColor}">${p.State_of_Health}%</span>
                                 </div>
-                                <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-slate-800/80">
-                                    <div class="bg-gradient-to-r ${healthBarColor} h-2 rounded-full transition-all duration-500" style="width: ${Math.max(p.State_of_Health, 6)}%"></div>
+                                <div class="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden border border-slate-800/80">
+                                    <div class="bg-gradient-to-r from-emerald-500 to-teal-400 h-1.5 rounded-full" style="width: ${Math.max(p.State_of_Health, 6)}%"></div>
                                 </div>
-                                <p class="text-[10px] text-slate-400 mt-1 italic">${healthVerdict}</p>
                             </div>
 
                         </div>
                     </div>
 
-                    <!-- Card Actions -->
-                    <div class="p-5 pt-0 flex items-center gap-2">
-                        <button onclick="loadPassport('${p.Product_ID}')" class="flex-1 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold py-2.5 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-emerald-950/40">
-                            <i class="fa-solid fa-book-open text-xs"></i>
-                            <span>Read Gadget Story</span>
-                        </button>
-                        <button onclick="loadTimeline('${p.Product_ID}')" title="View Verified Lifecycle Journey" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs py-2.5 px-3.5 rounded-xl border border-slate-700 transition">
-                            <i class="fa-solid fa-route"></i>
+                    <!-- Single Clean Action Button -->
+                    <div class="p-5 pt-0">
+                        <button onclick="loadPassport('${p.Product_ID}')" class="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold py-2.5 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-emerald-950/40">
+                            <i class="fa-solid fa-passport text-xs"></i>
+                            <span>Open Digital Passport</span>
                         </button>
                     </div>
                 </div>
@@ -531,7 +505,7 @@ function filterProducts() {
 }
 
 // ----------------------------------------------------------------------------
-// DIGITAL PRODUCT PASSPORT (DPP) VIEWER (HUMANIZED)
+// DIGITAL PRODUCT PASSPORT (DPP) VIEWER (SIMPLIFIED & TABBED)
 // ----------------------------------------------------------------------------
 async function handleGlobalSearch() {
     const input = document.getElementById('globalSearchInput');
@@ -568,6 +542,7 @@ async function loadPassport(productId) {
         }
         const data = await res.json();
         activePassportData = data;
+        passportActiveSubtab = 'story'; // Default to living story
         renderPassport(data);
     } catch (err) {
         container.innerHTML = `
@@ -588,8 +563,8 @@ async function loadPassport(productId) {
     }
 }
 
-function setPassportViewMode(mode) {
-    currentPassportViewMode = mode;
+function switchPassportSubtab(subtab) {
+    passportActiveSubtab = subtab;
     if (activePassportData) {
         renderPassport(activePassportData);
     }
@@ -621,7 +596,7 @@ function renderPassport(dpp) {
     // Status styling
     let statusBadge = `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-emerald-950 text-emerald-300 border border-emerald-700 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> In Active Use</span>`;
     if (dpp.Status === 'Under Repair') {
-        statusBadge = `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-950 text-amber-300 border border-amber-700 flex items-center gap-1.5"><i class="fa-solid fa-wrench"></i> In Service Centre</span>`;
+        statusBadge = `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-amber-950 text-amber-300 border border-amber-700 flex items-center gap-1.5"><i class="fa-solid fa-wrench"></i> In Service Hub</span>`;
     } else if (dpp.Status === 'Recycled') {
         statusBadge = `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-950 text-sky-300 border border-sky-700 flex items-center gap-1.5"><i class="fa-solid fa-recycle"></i> Reclaimed & Recycled</span>`;
     }
@@ -629,50 +604,40 @@ function renderPassport(dpp) {
     container.innerHTML = `
         <div class="space-y-6">
             
-            <!-- TOP HERO CARD: PRODUCT LIVING BIOGRAPHY & QR CODE -->
-            <div class="bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
-                <div class="absolute -right-20 -top-20 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8 relative z-10">
+            <!-- SIMPLIFIED PASSPORT HEADER CARD -->
+            <div class="bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl relative overflow-hidden">
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
                     
-                    <!-- Left: Device Photo & Identity -->
-                    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-6 flex-1">
-                        <div class="relative w-44 h-44 rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 flex-shrink-0 shadow-lg">
+                    <!-- Left: Photo + Metadata -->
+                    <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 flex-1">
+                        <div class="w-36 h-36 rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 flex-shrink-0 shadow-md relative">
                             <img src="${visual.image}" alt="${dpp.Model_Name}" class="w-full h-full object-cover">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent"></div>
-                            <span class="absolute bottom-2 left-2 text-[10px] font-mono font-bold bg-slate-900/90 text-emerald-400 px-2 py-0.5 rounded-md border border-slate-700">
+                            <span class="absolute bottom-2 left-2 text-[10px] font-mono font-bold bg-slate-900/90 text-emerald-400 px-2 py-0.5 rounded border border-slate-700">
                                 ${dpp.Product_ID}
                             </span>
                         </div>
 
-                        <div class="space-y-2.5 text-center sm:text-left flex-1">
+                        <div class="space-y-2 text-center sm:text-left flex-1">
                             <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
                                 <span class="px-3 py-0.5 rounded-full text-xs font-bold ${persona.tagColor}">
                                     ${persona.nickname}
                                 </span>
                                 ${statusBadge}
-                                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700">
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-slate-800 text-slate-300 border border-slate-700 font-mono">
                                     Health: ${dpp.State_of_Health}%
                                 </span>
                             </div>
 
-                            <div>
-                                <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${dpp.Model_Name}</h1>
-                                <p class="text-xs text-slate-400 mt-1 max-w-xl">${visual.tagline}</p>
-                            </div>
+                            <h1 class="text-2xl font-extrabold text-white tracking-tight">${dpp.Model_Name}</h1>
+                            <p class="text-xs text-slate-400 italic">"${persona.storyBio}"</p>
 
-                            <!-- Human Story Bio Snippet -->
-                            <p class="text-xs text-slate-300 bg-slate-950/70 p-3 rounded-2xl border border-slate-800/80 leading-relaxed italic">
-                                "${persona.storyBio}"
-                            </p>
-
-                            <!-- Key Specs Pills -->
-                            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-xs pt-1">
+                            <!-- Clean specs strip -->
+                            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1 text-xs">
                                 <span class="px-2.5 py-1 bg-slate-950 rounded-xl border border-slate-800 text-slate-400">
-                                    Maker: <strong class="text-white">${dpp.Manufacturer_Name}</strong>
+                                    Owner: <strong class="text-white">${dpp.Current_Owner_Name || 'EcoRecycle Depot'}</strong>
                                 </span>
                                 <span class="px-2.5 py-1 bg-slate-950 rounded-xl border border-slate-800 text-slate-400">
-                                    Serial: <strong class="text-slate-300 font-mono">${dpp.Serial_Number}</strong>
+                                    Maker: <strong class="text-slate-200">${dpp.Manufacturer_Name}</strong>
                                 </span>
                                 <span class="px-2.5 py-1 bg-slate-950 rounded-xl border border-slate-800 text-slate-400">
                                     Carbon: <strong class="text-emerald-400 font-mono">${dpp.Carbon_Footprint} kg</strong>
@@ -681,432 +646,272 @@ function renderPassport(dpp) {
                         </div>
                     </div>
 
-                    <!-- Right: Live Scannable QR Code Card -->
-                    <div class="bg-white p-4 rounded-3xl shadow-xl flex flex-col items-center justify-center text-center self-center lg:self-auto min-w-[210px]">
-                        <img src="${dpp.qrCode}" alt="Product Passport QR Code" class="w-40 h-40 object-contain rounded-xl">
-                        <div class="mt-2 text-slate-900 text-xs font-mono font-bold">${dpp.Product_ID}</div>
-                        <span class="text-[10px] text-slate-500">Scan with your phone to verify</span>
+                    <!-- Right: Scannable QR Code -->
+                    <div class="bg-white p-3.5 rounded-2xl shadow-xl flex flex-col items-center justify-center text-center self-center lg:self-auto min-w-[170px]">
+                        <img src="${dpp.qrCode}" alt="Product Passport QR Code" class="w-32 h-32 object-contain rounded-lg">
+                        <div class="mt-1 text-slate-900 text-[11px] font-mono font-bold">${dpp.Product_ID}</div>
+                        <span class="text-[9px] text-slate-500">Scan to verify passport</span>
                     </div>
+
                 </div>
             </div>
 
-            <!-- VIEW MODE TOGGLE PILLS -->
-            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                <div class="flex items-center space-x-2">
-                    <button onclick="setPassportViewMode('story')" class="mode-pill px-4 py-2 rounded-2xl text-xs font-bold flex items-center space-x-2 ${currentPassportViewMode === 'story' ? 'active' : 'bg-slate-900 text-slate-400 hover:text-white'}">
-                        <i class="fa-solid fa-book-open"></i>
-                        <span>📖 Gadget Biography (Story Mode)</span>
-                    </button>
-                    <button onclick="setPassportViewMode('technical')" class="mode-pill px-4 py-2 rounded-2xl text-xs font-bold flex items-center space-x-2 ${currentPassportViewMode === 'technical' ? 'active' : 'bg-slate-900 text-slate-400 hover:text-white'}">
-                        <i class="fa-solid fa-code"></i>
-                        <span>⚙️ Technical Specs & SQL BoM</span>
-                    </button>
-                </div>
-                <div class="text-xs text-slate-500 hidden sm:block">
-                    ${currentPassportViewMode === 'story' ? 'Viewing human journey & care guide' : 'Viewing engineering components & chemical composition'}
-                </div>
+            <!-- SIMPLIFIED SUB-TABS SELECTOR -->
+            <div class="flex space-x-2 border-b border-slate-800 pb-3 overflow-x-auto text-xs font-bold">
+                <button onclick="switchPassportSubtab('story')" class="px-4 py-2 rounded-xl transition flex items-center space-x-2 ${passportActiveSubtab === 'story' ? 'bg-emerald-600 text-white shadow-md' : 'bg-slate-900 text-slate-400 hover:text-white'}">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span>1. Living Story & Care</span>
+                </button>
+                <button onclick="switchPassportSubtab('hardware')" class="px-4 py-2 rounded-xl transition flex items-center space-x-2 ${passportActiveSubtab === 'hardware' ? 'bg-emerald-600 text-white shadow-md' : 'bg-slate-900 text-slate-400 hover:text-white'}">
+                    <i class="fa-solid fa-microchip"></i>
+                    <span>2. Hardware & Materials (BoM)</span>
+                </button>
+                <button onclick="switchPassportSubtab('repairs')" class="px-4 py-2 rounded-xl transition flex items-center space-x-2 ${passportActiveSubtab === 'repairs' ? 'bg-emerald-600 text-white shadow-md' : 'bg-slate-900 text-slate-400 hover:text-white'}">
+                    <i class="fa-solid fa-wrench"></i>
+                    <span>3. Repairs & Service (${dpp.repairs.length})</span>
+                </button>
+                <button onclick="switchPassportSubtab('recovery')" class="px-4 py-2 rounded-xl transition flex items-center space-x-2 ${passportActiveSubtab === 'recovery' ? 'bg-emerald-600 text-white shadow-md' : 'bg-slate-900 text-slate-400 hover:text-white'}">
+                    <i class="fa-solid fa-recycle"></i>
+                    <span>4. Circular Recovery ${dpp.recyclingEvent ? '✅' : ''}</span>
+                </button>
             </div>
 
-            <!-- DYNAMIC VIEW CONTAINER -->
-            ${currentPassportViewMode === 'story' ? renderStoryModeHtml(dpp, visual, persona) : renderTechnicalModeHtml(dpp)}
+            <!-- TAB CONTENT CONTAINER -->
+            <div id="passportSubtabContent">
+                ${renderActiveSubtabContent(dpp, visual, persona)}
+            </div>
 
         </div>
     `;
 }
 
-// ----------------------------------------------------------------------------
-// 1. STORY MODE VIEW (HUMAN-FIRST)
-// ----------------------------------------------------------------------------
-function renderStoryModeHtml(dpp, visual, persona) {
-    return `
-        <div class="space-y-6">
-
-            <!-- REAL-WORLD ENVIRONMENTAL IMPACT CARDS -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                
-                <!-- Carbon Metric Card -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-lg flex flex-col justify-between">
-                    <div>
-                        <div class="w-10 h-10 rounded-2xl bg-emerald-950 border border-emerald-800 text-emerald-400 flex items-center justify-center mb-3">
-                            <i class="fa-solid fa-car text-lg"></i>
+function renderActiveSubtabContent(dpp, visual, persona) {
+    if (passportActiveSubtab === 'story') {
+        return `
+            <div class="space-y-6">
+                <!-- 3 Metric Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-sm">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-950 text-emerald-400 flex items-center justify-center mb-2 text-sm">
+                            <i class="fa-solid fa-car"></i>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Carbon in Plain English</h4>
-                        <div class="text-xl font-extrabold text-white mt-1">${dpp.Carbon_Footprint} kg CO2e</div>
-                        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
-                            ${visual.carbonEquiv}
-                        </p>
+                        <h4 class="text-xs font-bold text-slate-400 uppercase">Carbon Impact</h4>
+                        <div class="text-lg font-bold text-white mt-0.5">${dpp.Carbon_Footprint} kg CO2e</div>
+                        <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">${visual.carbonEquiv}</p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-emerald-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-tree"></i>
-                        <span>${visual.treesEquiv}</span>
-                    </div>
-                </div>
 
-                <!-- Repairability Score Card -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-lg flex flex-col justify-between">
-                    <div>
-                        <div class="w-10 h-10 rounded-2xl bg-amber-950 border border-amber-800 text-amber-400 flex items-center justify-center mb-3">
-                            <i class="fa-solid fa-screwdriver-wrench text-lg"></i>
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-sm">
+                        <div class="w-8 h-8 rounded-xl bg-amber-950 text-amber-400 flex items-center justify-center mb-2 text-sm">
+                            <i class="fa-solid fa-screwdriver-wrench"></i>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">iFixit-Style Repairability</h4>
-                        <div class="text-xl font-extrabold text-amber-400 mt-1">${visual.repairabilityScore} / 10</div>
-                        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
-                            ${visual.repairabilityVerdict}
-                        </p>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800">
-                        <a href="${dpp.Disassembly_Manual_URL}" target="_blank" class="text-[11px] text-amber-400 hover:text-amber-300 flex items-center gap-1.5 font-semibold">
-                            <i class="fa-solid fa-file-pdf"></i>
-                            <span>View Step-by-Step Disassembly Guide ➔</span>
+                        <h4 class="text-xs font-bold text-slate-400 uppercase">Repairability Score</h4>
+                        <div class="text-lg font-bold text-amber-400 mt-0.5">${visual.repairabilityScore} / 10</div>
+                        <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">${visual.repairabilityVerdict}</p>
+                        <a href="${dpp.Disassembly_Manual_URL}" target="_blank" class="text-[11px] text-amber-400 hover:text-amber-300 mt-2 inline-flex items-center gap-1 font-semibold">
+                            <i class="fa-solid fa-file-pdf"></i> View Disassembly Guide ➔
                         </a>
                     </div>
-                </div>
 
-                <!-- Circularity & Materials Card -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-lg flex flex-col justify-between">
-                    <div>
-                        <div class="w-10 h-10 rounded-2xl bg-teal-950 border border-teal-800 text-teal-400 flex items-center justify-center mb-3">
-                            <i class="fa-solid fa-recycle text-lg"></i>
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-sm">
+                        <div class="w-8 h-8 rounded-xl bg-teal-950 text-teal-400 flex items-center justify-center mb-2 text-sm">
+                            <i class="fa-solid fa-leaf"></i>
                         </div>
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Circularity Rating</h4>
-                        <div class="text-xl font-extrabold text-teal-400 mt-1">${dpp.circularityScore}% Recyclable</div>
-                        <p class="text-xs text-slate-300 mt-2 leading-relaxed">
-                            Contains ${dpp.billOfMaterials.length} monitored strategic materials. ${dpp.totalHazardousCount === 0 ? 'Certified 100% non-hazardous for easy reuse.' : 'Contains monitored cobalt & lithium batteries safely neutralized under inert atmosphere.'}
+                        <h4 class="text-xs font-bold text-slate-400 uppercase">Circularity Index</h4>
+                        <div class="text-lg font-bold text-teal-400 mt-0.5">${dpp.circularityScore}% Reclaimable</div>
+                        <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                            ${dpp.billOfMaterials.length} monitored strategic materials. Zero landfill commitment.
                         </p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-teal-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-shield-halved"></i>
-                        <span>Zero-Landfill Commitment</span>
-                    </div>
                 </div>
 
-            </div>
-
-            <!-- CHAPTERS OF LIFE (STORY TIMELINE) -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
-                <div class="flex items-center space-x-3 mb-6 pb-4 border-b border-slate-800">
-                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center">
-                        <i class="fa-solid fa-route text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white">Chapters in This Gadget's Life</h3>
-                        <p class="text-xs text-slate-400">Real custody records documented by manufacturers, users, and technicians</p>
-                    </div>
-                </div>
-
-                <div class="space-y-6">
-                    ${dpp.timeline.map((evt, idx) => `
-                        <div class="flex items-start space-x-4 p-4 rounded-2xl bg-slate-950/80 border border-slate-800/80">
-                            <div class="w-8 h-8 rounded-xl bg-slate-900 border border-slate-700 text-emerald-400 flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">
-                                ${idx + 1}
-                            </div>
-                            <div class="flex-1 text-xs space-y-1">
-                                <div class="flex flex-wrap items-center justify-between gap-2">
-                                    <h4 class="font-bold text-white text-sm">${evt.Title}</h4>
-                                    <span class="text-emerald-400 font-mono font-medium">${evt.Event_Date}</span>
+                <!-- Life Chapters Timeline -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm">
+                    <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-route text-emerald-400"></i>
+                        <span>Life Journey Chapters</span>
+                    </h3>
+                    <div class="space-y-4">
+                        ${dpp.timeline.map((evt, idx) => `
+                            <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs space-y-1">
+                                <div class="flex justify-between items-center">
+                                    <h4 class="font-bold text-white"><span class="text-emerald-400 mr-1.5">#${idx + 1}</span>${evt.Title}</h4>
+                                    <span class="text-emerald-400 font-mono text-[11px]">${evt.Event_Date}</span>
                                 </div>
                                 <p class="text-slate-300 leading-relaxed">${evt.Description}</p>
                                 ${evt.Stakeholder_Name ? `
-                                    <div class="pt-1 text-[11px] text-slate-400 flex items-center gap-1.5">
-                                        <i class="fa-solid fa-user-check text-slate-500"></i>
-                                        <span>Verified Stakeholder: <strong class="text-slate-200">${evt.Stakeholder_Name}</strong> (${evt.Stakeholder_Type})</span>
+                                    <div class="text-[11px] text-slate-500 pt-1">
+                                        Partner: <strong class="text-slate-400">${evt.Stakeholder_Name}</strong>
                                     </div>
                                 ` : ''}
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-
-            <!-- PERSONALIZED GADGET CARE & LONGEVITY GUIDE -->
-            <div class="bg-gradient-to-br from-slate-900 via-slate-850 to-emerald-950/40 border border-emerald-800/40 rounded-3xl p-6 sm:p-8 shadow-xl">
-                <div class="flex items-center space-x-3 mb-4">
-                    <div class="w-10 h-10 rounded-2xl bg-emerald-950 border border-emerald-700/60 text-emerald-300 flex items-center justify-center">
-                        <i class="fa-solid fa-seedling text-lg"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-base font-bold text-white">Owner Care & Longevity Advice</h3>
-                        <p class="text-xs text-slate-300">How to keep this ${dpp.Model_Name} running for years to come</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4 text-xs">
-                    ${visual.careTips.map((tip, idx) => `
-                        <div class="p-4 bg-slate-950/80 rounded-2xl border border-slate-800 flex flex-col justify-between">
-                            <div>
-                                <span class="font-bold text-emerald-400 block mb-1">Tip #${idx + 1}</span>
-                                <p class="text-slate-300 leading-relaxed">${tip}</p>
-                            </div>
-                        </div>
-                    `).join('')}
-                </div>
-            </div>
-
-            <!-- END OF LIFE CELEBRATION (IF RECYCLED) -->
-            ${dpp.recyclingEvent ? `
-                <div class="bg-gradient-to-br from-emerald-950/50 via-slate-900 to-teal-950/50 border border-emerald-700/60 rounded-3xl p-6 sm:p-8 shadow-xl">
-                    <div class="flex items-center space-x-3 mb-4 pb-3 border-b border-emerald-800/40">
-                        <div class="w-10 h-10 rounded-2xl bg-emerald-900 text-emerald-300 flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-recycle"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-base font-bold text-white">Circular Destiny: Life Beyond the Landfill</h3>
-                            <p class="text-xs text-emerald-300">Reclaimed with pride by ${dpp.recyclingEvent.Recycling_Facility_Name}</p>
-                        </div>
-                    </div>
-
-                    <p class="text-xs text-slate-200 leading-relaxed mb-4">
-                        When this gadget completed its active service, its journey didn't end. Its working modular components were tested for second-life reuse, and its raw gold, copper, and lithium were recovered to build tomorrow's technology without mining pristine earth.
-                    </p>
-
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                        ${dpp.recyclingEvent.recoveries.map(r => `
-                            <div class="p-3 bg-slate-950/90 rounded-2xl border border-emerald-900/60 text-center">
-                                <div class="text-slate-400 text-[11px] font-sans">${r.Material_Name.split(' ')[0]}</div>
-                                <div class="text-emerald-400 text-base font-bold font-mono mt-0.5">${r.Quantity} ${r.Unit}</div>
-                                <div class="text-[10px] text-slate-400 mt-1">Purity: ${r.Purity}%</div>
                             </div>
                         `).join('')}
                     </div>
                 </div>
-            ` : ''}
 
-        </div>
-    `;
-}
-
-// ----------------------------------------------------------------------------
-// 2. TECHNICAL / SQL ENGINEERING VIEW (ACADEMIC SPECS)
-// ----------------------------------------------------------------------------
-function renderTechnicalModeHtml(dpp) {
-    return `
-        <div class="space-y-6">
-
-            <!-- TWO COLUMN: MANUFACTURER & CURRENT CUSTODY DETAILS -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
-                <!-- Manufacturer Details Card -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
-                    <div class="flex items-center space-x-3 mb-4 pb-3 border-b border-slate-800">
-                        <div class="w-9 h-9 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-emerald-400">
-                            <i class="fa-solid fa-industry"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Manufacturer & Eco-Design Standards</h3>
-                            <p class="text-xs text-slate-400">Primary manufacturing stakeholder entity</p>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2 text-xs">
-                        <div class="flex justify-between py-1 border-b border-slate-800/50">
-                            <span class="text-slate-500">Company Name</span>
-                            <span class="text-white font-medium">${dpp.Manufacturer_Name}</span>
-                        </div>
-                        <div class="flex justify-between py-1 border-b border-slate-800/50">
-                            <span class="text-slate-500">Country of Origin</span>
-                            <span class="text-white">${dpp.Country_of_Origin}</span>
-                        </div>
-                        <div class="flex justify-between py-1 border-b border-slate-800/50">
-                            <span class="text-slate-500">Corporate Reg Number</span>
-                            <span class="font-mono text-slate-300">${dpp.Manufacturer_Reg_No}</span>
-                        </div>
-                        <div class="flex justify-between py-1 border-b border-slate-800/50">
-                            <span class="text-slate-500">Energy Star / Eco Label</span>
-                            <span class="text-emerald-400 font-medium">${dpp.Energy_Rating}</span>
-                        </div>
-                        <div class="flex justify-between py-1 items-center">
-                            <span class="text-slate-500">Disassembly Manual</span>
-                            <a href="${dpp.Disassembly_Manual_URL}" target="_blank" class="text-emerald-400 hover:text-emerald-300 underline font-mono text-[11px] flex items-center gap-1">
-                                <i class="fa-solid fa-file-pdf"></i> View Guide
-                            </a>
-                        </div>
+                <!-- Owner Care Tips -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm">
+                    <h3 class="text-base font-bold text-white mb-3 flex items-center gap-2">
+                        <i class="fa-solid fa-seedling text-emerald-400"></i>
+                        <span>Gadget Longevity Care Tips</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                        ${visual.careTips.map((tip, idx) => `
+                            <div class="p-3.5 bg-slate-950/80 rounded-2xl border border-slate-800">
+                                <strong class="text-emerald-400 block mb-1">Tip #${idx + 1}</strong>
+                                <p class="text-slate-300">${tip}</p>
+                            </div>
+                        `).join('')}
                     </div>
                 </div>
-
-                <!-- Current Ownership / Custody Card -->
-                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
-                    <div class="flex items-center space-x-3 mb-4 pb-3 border-b border-slate-800">
-                        <div class="w-9 h-9 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-teal-400">
-                            <i class="fa-solid fa-user-check"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Current Custody & Ownership</h3>
-                            <p class="text-xs text-slate-400">Recorded stakeholder holding legal possession</p>
-                        </div>
-                    </div>
-
-                    ${dpp.Current_Owner_Name ? `
-                        <div class="space-y-2 text-xs">
-                            <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                <span class="text-slate-500">Registered Owner</span>
-                                <span class="text-white font-medium">${dpp.Current_Owner_Name}</span>
-                            </div>
-                            <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                <span class="text-slate-500">Owner Category</span>
-                                <span class="text-teal-400">${dpp.Current_Owner_Type}</span>
-                            </div>
-                            <div class="flex justify-between py-1 border-b border-slate-800/50">
-                                <span class="text-slate-500">Contact Email</span>
-                                <span class="text-slate-300 font-mono">${dpp.Current_Owner_Email || 'N/A'}</span>
-                            </div>
-                            <div class="flex justify-between py-1">
-                                <span class="text-slate-500">Registered Location</span>
-                                <span class="text-slate-300 text-right max-w-[200px] truncate">${dpp.Current_Owner_Address || 'N/A'}</span>
-                            </div>
-                        </div>
-                    ` : `
-                        <div class="p-6 bg-slate-950 rounded-2xl border border-slate-800 text-center text-xs text-slate-400">
-                            <i class="fa-solid fa-recycle text-emerald-400 text-2xl mb-2"></i>
-                            <p class="font-medium text-white">Device Relinquished to E-Waste Facility</p>
-                            <p class="text-[11px] text-slate-500 mt-1">Product is currently decommissioned for material extraction.</p>
-                        </div>
-                    `}
-                </div>
-
             </div>
-
-            <!-- HARDWARE COMPONENTS HIERARCHICAL BREAKDOWN -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-lg">
-                <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-purple-400">
-                            <i class="fa-solid fa-microchip"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Modular Component Tree</h3>
-                            <p class="text-xs text-slate-400">Serialized hardware sub-assemblies inside this unit</p>
-                        </div>
-                    </div>
-                    <span class="text-xs px-2.5 py-1 rounded-xl bg-slate-950 text-slate-300 border border-slate-800 font-mono">
-                        ${dpp.components.length} Monitored Parts
-                    </span>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    ${dpp.components.map(c => {
-                        let statusColor = "bg-emerald-950 text-emerald-400 border-emerald-800";
-                        if (c.Status === 'Replaced') statusColor = "bg-amber-950 text-amber-400 border-amber-800";
-                        if (c.Status === 'Salvaged') statusColor = "bg-purple-950 text-purple-400 border-purple-800";
-                        if (c.Status === 'Recycled') statusColor = "bg-sky-950 text-sky-400 border-sky-800";
-
-                        return `
-                            <div class="p-3.5 bg-slate-950 rounded-2xl border border-slate-800/80 flex flex-col justify-between">
+        `;
+    } else if (passportActiveSubtab === 'hardware') {
+        return `
+            <div class="space-y-6">
+                <!-- Components Grid -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm">
+                    <h3 class="text-sm font-bold text-white mb-3 flex items-center justify-between">
+                        <span>Modular Hardware Components (${dpp.components.length})</span>
+                        <span class="text-xs text-slate-500 font-mono">Serialized Assemblies</span>
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+                        ${dpp.components.map(c => `
+                            <div class="p-3 bg-slate-950 rounded-2xl border border-slate-800 flex justify-between items-center">
                                 <div>
-                                    <div class="flex justify-between items-start mb-1.5">
-                                        <span class="text-xs font-bold text-white">${c.Component_Type}</span>
-                                        <span class="px-2 py-0.5 rounded text-[10px] font-semibold border ${statusColor}">${c.Status}</span>
-                                    </div>
-                                    <div class="text-[11px] font-mono text-slate-500">ID: ${c.Component_ID}</div>
-                                    <div class="text-[11px] font-mono text-slate-400">S/N: ${c.Serial_Number}</div>
+                                    <div class="font-bold text-white">${c.Component_Type}</div>
+                                    <div class="text-[11px] font-mono text-slate-400">${c.Component_ID}</div>
                                 </div>
+                                <span class="px-2 py-0.5 rounded text-[10px] bg-slate-900 text-emerald-300 border border-emerald-800 font-semibold">${c.Status}</span>
                             </div>
-                        `;
-                    }).join('')}
-                </div>
-            </div>
-
-            <!-- BILL OF MATERIALS (BOM) & RECYCLABILITY -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-lg">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-800">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-teal-400">
-                            <i class="fa-solid fa-dna"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-bold text-white">Bill of Materials (BoM) & Chemical Composition</h3>
-                            <p class="text-xs text-slate-400">Chemical material composition, weight distribution, and hazard status</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-center space-x-3 text-xs">
-                        <div class="px-3 py-1 bg-slate-950 rounded-xl border border-slate-800">
-                            <span class="text-slate-500">Circularity Potential:</span>
-                            <span class="font-bold text-emerald-400 ml-1">${dpp.circularityScore}%</span>
-                        </div>
-                        <div class="px-3 py-1 bg-slate-950 rounded-xl border border-slate-800">
-                            <span class="text-slate-500">Hazardous Flags:</span>
-                            <span class="font-bold ${dpp.totalHazardousCount > 0 ? 'text-amber-400' : 'text-emerald-400'} ml-1">${dpp.totalHazardousCount}</span>
-                        </div>
+                        `).join('')}
                     </div>
                 </div>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-xs text-left">
-                        <thead class="text-slate-500 border-b border-slate-800 uppercase font-semibold text-[11px]">
-                            <tr>
-                                <th class="py-2.5 px-3">Material</th>
-                                <th class="py-2.5 px-3">Total Quantity</th>
-                                <th class="py-2.5 px-3">Recyclability</th>
-                                <th class="py-2.5 px-3">Hazard Flag</th>
-                                <th class="py-2.5 px-3">RoHS / REACH</th>
-                                <th class="py-2.5 px-3">Utilized In Subsystems</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-800/60 text-slate-300">
-                            ${dpp.billOfMaterials.map(m => `
-                                <tr class="hover:bg-slate-950/40">
-                                    <td class="py-2.5 px-3 font-medium text-white">${m.name}</td>
-                                    <td class="py-2.5 px-3 font-mono">${m.totalQuantityGrams} g</td>
-                                    <td class="py-2.5 px-3">
-                                        <span class="font-semibold text-emerald-400">${m.recyclability}%</span>
-                                    </td>
-                                    <td class="py-2.5 px-3">
-                                        ${m.hazardous ? '<span class="px-2 py-0.5 rounded text-[10px] bg-red-950 text-red-400 border border-red-800 font-bold">HAZARDOUS</span>' : '<span class="px-2 py-0.5 rounded text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-900">SAFE</span>'}
-                                    </td>
-                                    <td class="py-2.5 px-3">
-                                        ${m.rohsCompliant ? '<span class="text-emerald-400"><i class="fa-solid fa-check mr-1"></i>Compliant</span>' : '<span class="text-amber-400"><i class="fa-solid fa-xmark mr-1"></i>Restricted</span>'}
-                                    </td>
-                                    <td class="py-2.5 px-3 text-slate-400 text-[11px]">${m.usedInComponents.join(', ')}</td>
+                <!-- Bill of Materials Table -->
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm">
+                    <h3 class="text-sm font-bold text-white mb-3 flex items-center justify-between">
+                        <span>Chemical Bill of Materials (BoM)</span>
+                        <span class="text-xs text-emerald-400 font-semibold">${dpp.circularityScore}% Recyclable</span>
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left">
+                            <thead class="text-slate-500 border-b border-slate-800 uppercase font-semibold text-[10px]">
+                                <tr>
+                                    <th class="py-2 px-3">Material</th>
+                                    <th class="py-2 px-3">Weight</th>
+                                    <th class="py-2 px-3">Recyclability</th>
+                                    <th class="py-2 px-3">Hazard Flag</th>
+                                    <th class="py-2 px-3">RoHS Compliance</th>
+                                    <th class="py-2 px-3">Subsystem</th>
                                 </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                                ${dpp.billOfMaterials.map(m => `
+                                    <tr class="hover:bg-slate-950/40">
+                                        <td class="py-2.5 px-3 font-semibold text-white">${m.name}</td>
+                                        <td class="py-2.5 px-3 font-mono">${m.totalQuantityGrams} g</td>
+                                        <td class="py-2.5 px-3 text-emerald-400 font-semibold">${m.recyclability}%</td>
+                                        <td class="py-2.5 px-3">
+                                            ${m.hazardous ? '<span class="px-2 py-0.5 rounded text-[10px] bg-red-950 text-red-400 border border-red-800 font-bold">HAZARDOUS</span>' : '<span class="px-2 py-0.5 rounded text-[10px] bg-emerald-950 text-emerald-400 border border-emerald-900">SAFE</span>'}
+                                        </td>
+                                        <td class="py-2.5 px-3">${m.rohsCompliant ? '<span class="text-emerald-400">Pass</span>' : '<span class="text-amber-400">Restricted</span>'}</td>
+                                        <td class="py-2.5 px-3 text-slate-400 text-[11px]">${m.usedInComponents.join(', ')}</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
-            <!-- MAINTENANCE & REPAIR HISTORY -->
-            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-lg">
-                <div class="flex items-center space-x-3 mb-4 pb-3 border-b border-slate-800">
-                    <div class="w-9 h-9 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center text-amber-400">
-                        <i class="fa-solid fa-screwdriver-wrench"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-bold text-white">Maintenance, Servicing & Part Replacement Logs</h3>
-                        <p class="text-xs text-slate-400">Verified service history from authorized repair centres</p>
-                    </div>
-                </div>
+        `;
+    } else if (passportActiveSubtab === 'repairs') {
+        return `
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm">
+                <h3 class="text-sm font-bold text-white mb-3 flex items-center justify-between">
+                    <span>Maintenance & Repair History</span>
+                    <span class="text-xs text-slate-500">${dpp.repairs.length} Recorded Actions</span>
+                </h3>
 
                 ${dpp.repairs.length > 0 ? `
                     <div class="space-y-3">
                         ${dpp.repairs.map(r => `
                             <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800 text-xs">
-                                <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-                                    <div class="flex items-center space-x-2">
-                                        <span class="font-bold text-white">${r.Service_Centre_Name}</span>
-                                        <span class="text-[11px] text-slate-500 font-mono">(${r.License_Number})</span>
-                                    </div>
-                                    <div class="flex items-center space-x-3">
-                                        <span class="text-emerald-400 font-semibold">Cost: ₹${r.Repair_Cost}</span>
-                                        <span class="text-slate-400">${r.Repair_Date}</span>
-                                    </div>
+                                <div class="flex justify-between items-center mb-1.5">
+                                    <span class="font-bold text-white text-sm">${r.Service_Centre_Name}</span>
+                                    <span class="text-emerald-400 font-semibold">Cost: ₹${r.Repair_Cost} • ${r.Repair_Date}</span>
                                 </div>
                                 <p class="text-slate-300 mb-2">${r.Description}</p>
                                 <div class="text-[11px] text-slate-500">
-                                    <strong class="text-slate-400">Replaced Parts:</strong> <span class="font-mono text-amber-300">${r.Replace_Parts || 'None'}</span>
+                                    <strong class="text-slate-400">Parts:</strong> <span class="text-amber-300 font-mono">${r.Replace_Parts || 'None'}</span>
                                 </div>
                             </div>
                         `).join('')}
                     </div>
                 ` : `
-                    <div class="text-center py-6 text-xs text-slate-500">
-                        <i class="fa-solid fa-shield-halved text-2xl mb-1 text-slate-600"></i>
-                        <p>No repair actions logged. All factory components in original operational condition.</p>
+                    <div class="text-center py-10 text-xs text-slate-500">
+                        <i class="fa-solid fa-shield-halved text-3xl mb-2 text-slate-600"></i>
+                        <p>No repair actions needed. All original factory components remain in prime operational shape.</p>
                     </div>
                 `}
             </div>
+        `;
+    } else if (passportActiveSubtab === 'recovery') {
+        if (dpp.recyclingEvent) {
+            return `
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-sm space-y-5">
+                    <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                        <div>
+                            <h3 class="text-base font-bold text-white">E-Waste Decommission & Recovery Certificate</h3>
+                            <p class="text-xs text-emerald-400">Handled by ${dpp.recyclingEvent.Recycling_Facility_Name}</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-mono bg-emerald-950 text-emerald-300 border border-emerald-800">
+                            Permit: ${dpp.recyclingEvent.Environmental_Permit_ID}
+                        </span>
+                    </div>
 
-        </div>
-    `;
+                    <!-- Salvaged Reusable Parts -->
+                    <div>
+                        <h4 class="text-xs font-bold text-white mb-2">Salvaged Working Parts (Diverted for Refurbishment)</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            ${dpp.recyclingEvent.salvages.map(s => `
+                                <div class="p-3 bg-slate-950 rounded-2xl border border-purple-900/60 flex justify-between items-center">
+                                    <div>
+                                        <div class="font-bold text-white">${s.Component_Type}</div>
+                                        <div class="text-[11px] font-mono text-slate-400">${s.Component_ID}</div>
+                                    </div>
+                                    <span class="px-2 py-0.5 rounded text-[10px] bg-purple-950 text-purple-300 border border-purple-800 font-semibold">${s.Condition_Grade}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Recovered Metals -->
+                    <div>
+                        <h4 class="text-xs font-bold text-white mb-2">Reclaimed Strategic Metals</h4>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                            ${dpp.recyclingEvent.recoveries.map(r => `
+                                <div class="p-3 bg-slate-950 rounded-2xl border border-emerald-900/60 text-center">
+                                    <div class="text-slate-400 text-[11px]">${r.Material_Name.split(' ')[0]}</div>
+                                    <div class="text-emerald-400 text-sm font-bold font-mono mt-0.5">${r.Quantity} ${r.Unit}</div>
+                                    <div class="text-[10px] text-slate-500">Purity: ${r.Purity}%</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+        } else {
+            return `
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-12 text-center text-slate-400">
+                    <i class="fa-solid fa-heart-pulse text-4xl text-emerald-400 mb-2"></i>
+                    <h3 class="text-base font-bold text-white">This Device is Alive & Active!</h3>
+                    <p class="text-xs text-slate-400 max-w-md mx-auto mt-1">
+                        This gadget has not reached end-of-life. It is currently in use or under service. When retired, its intake, salvaged parts, and extracted gold/copper/lithium will appear here automatically.
+                    </p>
+                </div>
+            `;
+        }
+    }
 }
 
 function printPassport() {
@@ -1114,7 +919,7 @@ function printPassport() {
 }
 
 // ----------------------------------------------------------------------------
-// LIFECYCLE TIMELINE TRACE (HUMANIZED)
+// LIFECYCLE TIMELINE TRACE (SIMPLIFIED)
 // ----------------------------------------------------------------------------
 async function loadTimelineForSelected() {
     const sel = document.getElementById('timelineProductSelect');
@@ -1178,7 +983,6 @@ async function loadTimeline(productId) {
 
             <div class="relative timeline-track pl-10 space-y-6">
                 ${data.timeline.map((evt, idx) => {
-                    // Stage Icon & Colors
                     let icon = 'fa-industry';
                     let dotColor = 'bg-emerald-500 border-emerald-400 ring-emerald-500/30';
                     let stageBadge = 'bg-emerald-950 text-emerald-300 border-emerald-800';
@@ -1203,13 +1007,12 @@ async function loadTimeline(productId) {
 
                     return `
                         <div class="relative">
-                            <!-- Timeline node dot -->
                             <div class="absolute -left-10 top-1 w-6 h-6 rounded-full ${dotColor} border-2 ring-4 flex items-center justify-center text-[10px] text-white z-10 shadow-lg">
                                 <i class="fa-solid ${icon}"></i>
                             </div>
 
-                            <div class="bg-slate-950 p-5 rounded-3xl border border-slate-800/80 shadow-md hover:border-slate-700 transition">
-                                <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                            <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800/80 shadow-sm hover:border-slate-700 transition">
+                                <div class="flex flex-wrap items-center justify-between gap-2 mb-1.5">
                                     <div class="flex items-center space-x-2">
                                         <span class="text-sm font-bold text-white">${evt.Title}</span>
                                         <span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold border ${stageBadge}">${evt.Stage}</span>
@@ -1218,7 +1021,7 @@ async function loadTimeline(productId) {
                                 </div>
                                 <p class="text-xs text-slate-300 leading-relaxed">${evt.Description}</p>
                                 ${evt.Stakeholder_Name ? `
-                                    <div class="mt-3 pt-2 border-t border-slate-900 text-[11px] text-slate-400 flex items-center gap-1.5">
+                                    <div class="mt-2 pt-2 border-t border-slate-900 text-[11px] text-slate-400 flex items-center gap-1.5">
                                         <i class="fa-solid fa-circle-check text-emerald-400"></i>
                                         <span>Authenticated by: <strong class="text-slate-200">${evt.Stakeholder_Name}</strong> (${evt.Stakeholder_Type || 'Partner Hub'})</span>
                                     </div>
@@ -1453,7 +1256,6 @@ async function handleRecycleIntake(e) {
         const data = await res.json();
         if (res.ok) {
             showToast(`♻️ E-waste intake logged! Event ID: ${data.Recycling_Event_ID}`, 'success');
-            // Auto fill the next steps forms
             document.getElementById('salvageEventId').value = data.Recycling_Event_ID;
             document.getElementById('recoveryEventId').value = data.Recycling_Event_ID;
             await loadCatalogue();
@@ -1526,14 +1328,13 @@ async function handleRecoverMaterial(e) {
 }
 
 // ----------------------------------------------------------------------------
-// CIRCULARITY ANALYTICS & DASHBOARD (HUMANIZED)
+// CIRCULARITY ANALYTICS & DASHBOARD (SIMPLIFIED)
 // ----------------------------------------------------------------------------
 async function loadSummaryAnalytics() {
     try {
         const res = await fetch('/api/summary');
         const stats = await res.json();
 
-        // Update KPIs
         document.getElementById('statTotalProducts').innerText = stats.totalProducts;
         document.getElementById('statInUse').innerText = stats.inUseCount;
         document.getElementById('statUnderRepair').innerText = stats.underRepairCount;
@@ -1541,7 +1342,6 @@ async function loadSummaryAnalytics() {
         document.getElementById('statSalvaged').innerText = stats.totalSalvagedParts;
         document.getElementById('statMaterialsWeight').innerText = `${stats.totalMaterialWeightGrams} g`;
 
-        // Render Table with Human Context
         const tbody = document.getElementById('materialsAuditTableBody');
         if (tbody) {
             const humanMeanings = {
@@ -1555,20 +1355,17 @@ async function loadSummaryAnalytics() {
 
             tbody.innerHTML = stats.materialsBreakdown.map(m => `
                 <tr class="hover:bg-slate-950/40">
-                    <td class="py-3 px-3 font-semibold text-white">${m.Material_Name}</td>
-                    <td class="py-3 px-3 font-mono text-emerald-400 text-xs">${m.Material_ID}</td>
-                    <td class="py-3 px-3 font-mono font-bold text-white">${m.TotalRecovered}</td>
-                    <td class="py-3 px-3 text-slate-400 font-mono">${m.Unit}</td>
-                    <td class="py-3 px-3 font-semibold text-teal-400">${m.AvgPurity.toFixed(1)}%</td>
-                    <td class="py-3 px-3 text-slate-300 text-xs">${humanMeanings[m.Material_ID] || 'Circular raw material reclaimed.'}</td>
+                    <td class="py-2.5 px-3 font-semibold text-white">${m.Material_Name}</td>
+                    <td class="py-2.5 px-3 font-mono text-emerald-400 text-xs">${m.Material_ID}</td>
+                    <td class="py-2.5 px-3 font-mono font-bold text-white">${m.TotalRecovered}</td>
+                    <td class="py-2.5 px-3 text-slate-400 font-mono">${m.Unit}</td>
+                    <td class="py-2.5 px-3 font-semibold text-teal-400">${m.AvgPurity.toFixed(1)}%</td>
+                    <td class="py-2.5 px-3 text-slate-300 text-xs">${humanMeanings[m.Material_ID] || 'Circular raw material reclaimed.'}</td>
                 </tr>
             `).join('');
         }
 
-        // Render Chart 1: Recovered Materials
         renderMaterialsChart(stats.materialsBreakdown);
-
-        // Render Chart 2: Product Status Distribution
         renderStatusChart(stats);
 
     } catch (err) {
