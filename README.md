@@ -19,25 +19,6 @@ The system tracks physical electronics from **Manufacturing ➔ Retail Purchase 
 
 ---
 
-## 🚀 Quick Start (Running on Localhost)
-
-The application is already running at:
-👉 **[http://localhost:3000](http://localhost:3000)**
-
-To run or restart manually at any time:
-
-```bash
-# Navigate to project directory
-cd "C:\Users\Aditya Priyan\.gemini\antigravity\scratch\dpp-ewaste-traceability"
-
-# Start the Node.js Express server
-npm start
-```
-
-Open your browser and navigate to **`http://localhost:3000`**.
-
----
-
 ## 🗄️ Relational Database Architecture & ER Model
 
 The database implements a normalized 3NF Entity-Relationship (ER) model designed for electronics circularity:
