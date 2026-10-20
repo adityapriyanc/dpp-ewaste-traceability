@@ -31,9 +31,7 @@ This project implements a normalized relational SQL database operating as a **Di
 
 ---
 
-## 3. Technology Readiness Level (TRL) & Sustainable Development Goals (SDGs)
-
-* **TRL 3:** Analytical and experimental proof of concept. Validated with normalized database schemas, live backend query execution, and an interactive prototype interface.
+## 3. Sustainable Development Goals (SDGs)
 * **SDG 9 (Industry, Innovation & Infrastructure):** Digitizing electronics manufacturing supply chains.
 * **SDG 11 (Sustainable Cities & Communities):** Diverting municipal electronic waste away from toxic landfills.
 * **SDG 12 (Responsible Consumption & Production):** Ensuring closed-loop raw material recovery and product longevity.
