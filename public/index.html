@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Product Passport (DPP) — E-Waste Lifecycle Traceability System</title>
+    <title>EcoTrace DPP — Digital Product Passport & E-Waste Lifecycle Traceability</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -20,6 +20,14 @@
                             800: '#065f46',
                             900: '#064e3b',
                             950: '#022c22'
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                            600: '#0d9488'
+                        },
+                        amber: {
+                            500: '#f59e0b',
+                            600: '#d97706'
                         },
                         slate: {
                             850: '#151e2e',
@@ -44,16 +52,16 @@
     <div class="bg-gradient-to-r from-emerald-950 via-slate-900 to-emerald-950 border-b border-emerald-800/40 px-4 py-2 text-xs">
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
             <div class="flex items-center space-x-2 text-emerald-400">
-                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-900/60 text-emerald-300 border border-emerald-700/50">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-900/60 text-emerald-300 border border-emerald-700/50">
                     <i class="fa-solid fa-graduation-cap mr-1.5"></i> VIT Vellore • BACSE202 Database Systems
                 </span>
                 <span class="hidden md:inline text-slate-400">|</span>
                 <span class="text-slate-300 font-medium">Faculty Guide: <strong class="text-emerald-300">Prof. Saritha Murali</strong></span>
             </div>
-            <div class="flex items-center space-x-4 text-slate-300">
-                <span>Team: <strong class="text-white">Aditya Priyan C</strong> (25BCE0662) & <strong class="text-white">Amaan Abdullah Karuthedath</strong> (25BCE2701)</span>
-                <button onclick="resetDemoData()" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-2 py-1 rounded transition border border-slate-700 flex items-center">
-                    <i class="fa-solid fa-rotate mr-1"></i> Reset DB
+            <div class="flex items-center space-x-4 text-slate-300 text-[11px]">
+                <span>Project by: <strong class="text-white">Aditya Priyan C</strong> (25BCE0662) & <strong class="text-white">Amaan Abdullah Karuthedath</strong> (25BCE2701)</span>
+                <button onclick="resetDemoData()" title="Restore default sample database" class="text-xs bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-2 py-1 rounded-lg transition border border-slate-700 flex items-center">
+                    <i class="fa-solid fa-rotate mr-1"></i> Reset Data
                 </button>
             </div>
         </div>
@@ -66,15 +74,15 @@
                 
                 <!-- Logo & Brand -->
                 <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('catalogue')">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 ring-1 ring-emerald-400/30">
-                        <i class="fa-solid fa-qrcode text-lg"></i>
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/25 ring-1 ring-emerald-400/40">
+                        <i class="fa-solid fa-leaf text-lg"></i>
                     </div>
                     <div>
                         <div class="flex items-center space-x-2">
-                            <span class="font-bold text-lg text-white tracking-tight">EcoTrace <span class="text-emerald-400">DPP</span></span>
-                            <span class="px-1.5 py-0.5 text-[10px] uppercase font-bold tracking-wider bg-emerald-500/20 text-emerald-400 rounded border border-emerald-500/30">v2.0 SQL</span>
+                            <span class="font-extrabold text-lg text-white tracking-tight">EcoTrace <span class="text-emerald-400">Passport</span></span>
+                            <span class="px-2 py-0.5 text-[10px] font-bold tracking-wider bg-emerald-500/20 text-emerald-300 rounded-full border border-emerald-500/30">Circular Tech</span>
                         </div>
-                        <p class="text-[11px] text-slate-400 hidden sm:block">Digital Product Passport & E-Waste Lifecycle Traceability</p>
+                        <p class="text-[11px] text-slate-400 hidden sm:block">Living biographies of electronics & zero-landfill traceability</p>
                     </div>
                 </div>
 
@@ -83,52 +91,52 @@
                     <div class="relative">
                         <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
                         <input type="text" id="globalSearchInput" 
-                               placeholder="Lookup by Item ID (e.g. PROD-LOQ-001, PROD-IPH-001)..." 
-                               class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl pl-9 pr-24 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition shadow-inner">
-                        <button onclick="handleGlobalSearch()" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3 py-1 rounded-lg transition">
-                            Track
+                               placeholder="Search by Item ID (e.g. PROD-LOQ-001, PROD-IPH-001)..." 
+                               class="w-full bg-slate-950/90 border border-slate-700/80 rounded-xl pl-9 pr-24 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition shadow-inner">
+                        <button onclick="handleGlobalSearch()" class="absolute right-1.5 top-1/2 -translate-y-1/2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold px-3 py-1 rounded-lg transition shadow-sm">
+                            Inspect
                         </button>
                     </div>
                 </div>
 
-                <!-- QR Scanner & Action Pill -->
+                <!-- Quick Action Buttons -->
                 <div class="flex items-center space-x-2">
                     <button onclick="openQRModal()" class="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition shadow-sm">
                         <i class="fa-solid fa-camera text-emerald-400"></i>
-                        <span class="hidden sm:inline">Scan QR / Item</span>
+                        <span class="hidden sm:inline">Scan QR Code</span>
                     </button>
-                    <a href="/api/sql/export" download="dpp_database_export.sql" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 text-xs font-medium border border-emerald-700/50 transition">
+                    <a href="/api/sql/export" download="dpp_database_export.sql" title="Export relational database SQL dump" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900 text-emerald-300 text-xs font-medium border border-emerald-700/50 transition">
                         <i class="fa-solid fa-file-arrow-down"></i>
-                        <span class="hidden lg:inline">Export SQL</span>
+                        <span class="hidden lg:inline">Download SQL</span>
                     </a>
                 </div>
             </div>
 
             <!-- Tab Navigation Links -->
             <nav class="flex space-x-1 overflow-x-auto py-2.5 scrollbar-none border-t border-slate-800/60 text-xs font-medium">
-                <button onclick="switchTab('catalogue')" id="tab-btn-catalogue" class="tab-btn active px-3.5 py-1.5 rounded-lg flex items-center space-x-2 whitespace-nowrap transition">
-                    <i class="fa-solid fa-boxes-stacked"></i>
-                    <span>Product Catalogue</span>
+                <button onclick="switchTab('catalogue')" id="tab-btn-catalogue" class="tab-btn active px-3.5 py-1.5 rounded-xl flex items-center space-x-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-laptop-code text-sm"></i>
+                    <span>Device Catalogue</span>
                 </button>
-                <button onclick="switchTab('passport')" id="tab-btn-passport" class="tab-btn px-3.5 py-1.5 rounded-lg flex items-center space-x-2 whitespace-nowrap transition">
-                    <i class="fa-solid fa-id-card-clip"></i>
-                    <span>Digital Passport (DPP)</span>
+                <button onclick="switchTab('passport')" id="tab-btn-passport" class="tab-btn px-3.5 py-1.5 rounded-xl flex items-center space-x-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-id-card-clip text-sm"></i>
+                    <span>Product Passport (DPP)</span>
                 </button>
-                <button onclick="switchTab('timeline')" id="tab-btn-timeline" class="tab-btn px-3.5 py-1.5 rounded-lg flex items-center space-x-2 whitespace-nowrap transition">
-                    <i class="fa-solid fa-timeline"></i>
-                    <span>Lifecycle Trace</span>
+                <button onclick="switchTab('timeline')" id="tab-btn-timeline" class="tab-btn px-3.5 py-1.5 rounded-xl flex items-center space-x-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-route text-sm"></i>
+                    <span>Lifecycle Journey</span>
                 </button>
-                <button onclick="switchTab('admin')" id="tab-btn-admin" class="tab-btn px-3.5 py-1.5 rounded-lg flex items-center space-x-2 whitespace-nowrap transition">
-                    <i class="fa-solid fa-sliders"></i>
+                <button onclick="switchTab('admin')" id="tab-btn-admin" class="tab-btn px-3.5 py-1.5 rounded-xl flex items-center space-x-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-people-carry-box text-sm"></i>
                     <span>Stakeholder Hub</span>
                 </button>
-                <button onclick="switchTab('analytics')" id="tab-btn-analytics" class="tab-btn px-3.5 py-1.5 rounded-lg flex items-center space-x-2 whitespace-nowrap transition">
-                    <i class="fa-solid fa-chart-pie"></i>
-                    <span>Circularity Analytics</span>
+                <button onclick="switchTab('analytics')" id="tab-btn-analytics" class="tab-btn px-3.5 py-1.5 rounded-xl flex items-center space-x-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-chart-pie text-sm"></i>
+                    <span>Circularity Impact</span>
                 </button>
-                <button onclick="switchTab('sqlstudio')" id="tab-btn-sqlstudio" class="tab-btn px-3.5 py-1.5 rounded-lg flex items-center space-x-2 whitespace-nowrap transition">
-                    <i class="fa-solid fa-database text-emerald-400"></i>
-                    <span>SQL Query Studio & Schema</span>
+                <button onclick="switchTab('sqlstudio')" id="tab-btn-sqlstudio" class="tab-btn px-3.5 py-1.5 rounded-xl flex items-center space-x-2 whitespace-nowrap transition">
+                    <i class="fa-solid fa-database text-emerald-400 text-sm"></i>
+                    <span>SQL Studio & ER Model</span>
                 </button>
             </nav>
         </div>
@@ -141,71 +149,81 @@
         <!-- TAB 1: PRODUCT CATALOGUE -->
         <!-- ==================================================================== -->
         <section id="tab-catalogue" class="tab-content">
-            <!-- Hero / Quick Search Bar for Mobile -->
-            <div class="mb-6 bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden">
-                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
-                    <div>
-                        <h1 class="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
-                            <span>Electronic Product Passport Registry</span>
-                            <span class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-900/60 text-emerald-300 border border-emerald-700">Relational SQL</span>
+            
+            <!-- Warm, Friendly Hero Welcome Banner -->
+            <div class="mb-8 bg-gradient-to-r from-slate-900 via-slate-850 to-emerald-950/40 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden">
+                <div class="absolute -right-12 -bottom-12 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+                    <div class="max-w-2xl space-y-2">
+                        <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-900/50 border border-emerald-700/50 text-emerald-300 text-xs font-semibold">
+                            <i class="fa-solid fa-sparkles text-amber-400 mr-1"></i> Every Gadget Has a Story
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                            Meet Your Electronics' Living Biographies
                         </h1>
-                        <p class="text-sm text-slate-400 mt-1 max-w-2xl">
-                            Each physical item is tied to its shared model specifications, serialised components, bill of materials, ownership lifecycle, and recycling yield.
+                        <p class="text-sm text-slate-300 leading-relaxed">
+                            Instead of cold serial numbers lost in junk drawers, each device below carries a verified <strong>Digital Product Passport</strong>. Track where it was born, who cared for it, every repair it received, and how its precious gold, copper, and lithium are reborn rather than polluting landfills.
                         </p>
                     </div>
 
-                    <!-- Quick Sample Item Jump Buttons -->
-                    <div class="flex flex-wrap items-center gap-2">
-                        <span class="text-xs text-slate-500">Quick Test Items:</span>
-                        <button onclick="loadPassport('PROD-LOQ-001')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-mono text-emerald-300 border border-slate-700 transition">
-                            LOQ-001 (In Use)
-                        </button>
-                        <button onclick="loadPassport('PROD-LOQ-002')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-mono text-amber-300 border border-slate-700 transition">
-                            LOQ-002 (Recycled)
-                        </button>
-                        <button onclick="loadPassport('PROD-IPH-001')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-mono text-sky-300 border border-slate-700 transition">
-                            IPH-001 (Amaan)
-                        </button>
+                    <!-- Quick Sample Device Jump Chips -->
+                    <div class="p-4 bg-slate-950/70 border border-slate-800/80 rounded-2xl flex flex-col space-y-2 min-w-[260px]">
+                        <span class="text-[11px] font-semibold text-slate-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-hand-pointer text-emerald-400"></i> Explore Sample Gadgets:
+                        </span>
+                        <div class="flex flex-wrap gap-1.5">
+                            <button onclick="loadPassport('PROD-LOQ-001')" class="px-2.5 py-1 rounded-lg bg-emerald-950 hover:bg-emerald-900 text-[11px] font-medium text-emerald-300 border border-emerald-800 transition">
+                                💻 Aditya's LOQ Laptop
+                            </button>
+                            <button onclick="loadPassport('PROD-LOQ-002')" class="px-2.5 py-1 rounded-lg bg-sky-950 hover:bg-sky-900 text-[11px] font-medium text-sky-300 border border-sky-800 transition">
+                                ♻️ Reclaimed LOQ Unit
+                            </button>
+                            <button onclick="loadPassport('PROD-IPH-001')" class="px-2.5 py-1 rounded-lg bg-teal-950 hover:bg-teal-900 text-[11px] font-medium text-teal-300 border border-teal-800 transition">
+                                📱 Amaan's iPhone 15
+                            </button>
+                            <button onclick="loadPassport('PROD-DEL-001')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-medium text-slate-300 border border-slate-700 transition">
+                                🏛️ VIT Campus Lab XPS
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Filters & Search Bar inside Catalogue -->
-                <div class="mt-5 grid grid-cols-1 sm:grid-cols-12 gap-3 pt-4 border-t border-slate-800/80">
+                <div class="mt-6 grid grid-cols-1 sm:grid-cols-12 gap-3 pt-4 border-t border-slate-800/80">
                     <div class="sm:col-span-5 relative">
                         <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
                         <input type="text" id="catalogueSearchInput" oninput="debounceFilterProducts()" 
-                               placeholder="Filter by product name, model number, serial..." 
+                               placeholder="Search by device name, owner name, serial number..." 
                                class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500">
                     </div>
                     <div class="sm:col-span-4">
                         <select id="catalogueCategoryFilter" onchange="filterProducts()" 
                                 class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-emerald-500">
-                            <option value="all">All Device Categories</option>
+                            <option value="all">All Device Types</option>
                             <option value="Laptop">Laptops</option>
                             <option value="Smartphone">Smartphones</option>
-                            <option value="Monitor">Monitors</option>
+                            <option value="Monitor">Displays & Monitors</option>
                             <option value="Tablet">Tablets</option>
                         </select>
                     </div>
                     <div class="sm:col-span-3">
                         <select id="catalogueStatusFilter" onchange="filterProducts()" 
                                 class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-slate-300 focus:outline-none focus:border-emerald-500">
-                            <option value="all">All Lifecycle Statuses</option>
-                            <option value="In Use">In Use (Active)</option>
-                            <option value="Under Repair">Under Repair</option>
-                            <option value="Recycled">Recycled (End-of-Life)</option>
+                            <option value="all">All Life Stages</option>
+                            <option value="In Use">In Active Use</option>
+                            <option value="Under Repair">In Service / Repair Hub</option>
+                            <option value="Recycled">Recycled & Recovered</option>
                         </select>
                     </div>
                 </div>
             </div>
 
             <!-- Product Items Grid -->
-            <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Dynamically rendered via app.js -->
-                <div class="col-span-full py-12 text-center text-slate-500">
-                    <i class="fa-solid fa-circle-notch fa-spin text-2xl text-emerald-500 mb-2"></i>
-                    <p>Loading electronic items from database...</p>
+                <div class="col-span-full py-16 text-center text-slate-400">
+                    <i class="fa-solid fa-circle-notch fa-spin text-3xl text-emerald-500 mb-3"></i>
+                    <p class="text-sm">Connecting with the digital product passport registry...</p>
                 </div>
             </div>
         </section>
@@ -215,15 +233,15 @@
         <!-- TAB 2: DIGITAL PRODUCT PASSPORT (DPP) -->
         <!-- ==================================================================== -->
         <section id="tab-passport" class="tab-content hidden">
-            <!-- Search / Item ID selector header -->
+            <!-- Search & Mode Selector Header -->
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-6 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-950 border border-emerald-700/60 flex items-center justify-center text-emerald-400">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-md">
                         <i class="fa-solid fa-fingerprint text-lg"></i>
                     </div>
                     <div>
-                        <h2 class="text-base font-bold text-white">Digital Product Passport Viewer</h2>
-                        <p class="text-xs text-slate-400">Enter physical product ID or select from preloaded units</p>
+                        <h2 class="text-base font-bold text-white">Digital Product Passport Inspector</h2>
+                        <p class="text-xs text-slate-400">Enter a Product ID or choose from your registered fleet</p>
                     </div>
                 </div>
 
@@ -232,13 +250,13 @@
                         <input type="text" id="passportIdInput" placeholder="Enter Product ID (e.g. PROD-LOQ-001)" 
                                class="bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-1.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 font-mono uppercase">
                     </div>
-                    <button onclick="handlePassportLookup()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-4 py-2 rounded-xl transition flex items-center space-x-1.5">
+                    <button onclick="handlePassportLookup()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-4 py-2 rounded-xl transition flex items-center space-x-1.5 shadow-sm">
                         <i class="fa-solid fa-magnifying-glass"></i>
                         <span>Inspect Passport</span>
                     </button>
                     <button onclick="printPassport()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium px-3 py-2 rounded-xl border border-slate-700 transition flex items-center space-x-1">
                         <i class="fa-solid fa-print"></i>
-                        <span>Print</span>
+                        <span>Print Certificate</span>
                     </button>
                 </div>
             </div>
@@ -246,11 +264,11 @@
             <!-- Passport Details Container -->
             <div id="passportDetailsContainer">
                 <!-- Dynamically populated via app.js -->
-                <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-12 text-center text-slate-400">
-                    <i class="fa-solid fa-passport text-4xl text-slate-600 mb-3"></i>
-                    <h3 class="text-lg font-medium text-slate-300">No Product Passport Selected</h3>
-                    <p class="text-xs text-slate-500 max-w-md mx-auto mt-1">
-                        Select any product from the catalogue, click one of the quick test chips above, or enter an Item ID like <span class="font-mono text-emerald-400">PROD-LOQ-001</span>.
+                <div class="bg-slate-900/60 border border-slate-800 rounded-3xl p-16 text-center text-slate-400">
+                    <i class="fa-solid fa-passport text-5xl text-slate-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-slate-200">No Electronic Gadget Selected</h3>
+                    <p class="text-xs text-slate-400 max-w-md mx-auto mt-2 leading-relaxed">
+                        Select any device from the catalogue, click one of the quick test chips above, or enter an Item ID like <span class="font-mono text-emerald-400 font-bold">PROD-LOQ-001</span> to view its complete circular story.
                     </p>
                 </div>
             </div>
@@ -264,16 +282,16 @@
             <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 mb-6 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
                     <h2 class="text-lg font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-timeline text-emerald-400"></i>
-                        <span>Cradle-to-Grave Lifecycle Traceability</span>
+                        <i class="fa-solid fa-route text-emerald-400"></i>
+                        <span>The Life Journey of Your Gadget</span>
                     </h2>
                     <p class="text-xs text-slate-400 mt-0.5">
-                        Chronological sequence of verified custody events: Manufacturing ➔ Purchase ➔ Service & Repairs ➔ Ownership Transfers ➔ E-Waste Recovery.
+                        A verified, human-readable timeline from manufacturing to daily ownership, maintenance, and circular rebirth.
                     </p>
                 </div>
 
                 <div class="flex items-center space-x-2">
-                    <label class="text-xs text-slate-400 whitespace-nowrap">Select Product:</label>
+                    <label class="text-xs text-slate-400 whitespace-nowrap">Choose Gadget:</label>
                     <select id="timelineProductSelect" onchange="loadTimelineForSelected()" 
                             class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-white focus:outline-none focus:border-emerald-500 font-mono">
                         <!-- Populated dynamically -->
@@ -281,7 +299,7 @@
                 </div>
             </div>
 
-            <div id="timelineContainer" class="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 relative">
+            <div id="timelineContainer" class="bg-slate-900/70 border border-slate-800 rounded-3xl p-6 sm:p-8 relative">
                 <!-- Populated via app.js -->
             </div>
         </section>
@@ -292,12 +310,14 @@
         <!-- ==================================================================== -->
         <section id="tab-admin" class="tab-content hidden">
             <div class="mb-6">
-                <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-sliders text-emerald-400"></i>
-                    <span>Stakeholder Operations Hub</span>
+                <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-300 text-xs font-semibold mb-2">
+                    <i class="fa-solid fa-users-gear text-emerald-400"></i> Verified Stakeholder Portal
+                </div>
+                <h2 class="text-2xl font-extrabold text-white">
+                    Circular Collaboration Hub
                 </h2>
-                <p class="text-sm text-slate-400 mt-0.5">
-                    Authorized stakeholders update the Digital Product Passport in real-time through automated SQL backend forms.
+                <p class="text-sm text-slate-400 mt-1 max-w-3xl leading-relaxed">
+                    A circular economy only works when real humans cooperate. Manufacturers publish eco-designs, owners record transfers, service centres log life-extending repairs, and recycling facilities give precious raw materials back to the world.
                 </p>
             </div>
 
@@ -305,19 +325,19 @@
             <div class="flex space-x-2 border-b border-slate-800 pb-3 mb-6 overflow-x-auto text-xs font-semibold">
                 <button onclick="switchAdminSubtab('mfg')" id="admin-sub-mfg" class="admin-sub-btn active px-4 py-2 rounded-xl bg-emerald-600 text-white transition flex items-center space-x-2">
                     <i class="fa-solid fa-industry"></i>
-                    <span>Manufacturer (Register Model & Items)</span>
+                    <span>1. Manufacturer (Design & Build)</span>
                 </button>
                 <button onclick="switchAdminSubtab('service')" id="admin-sub-service" class="admin-sub-btn px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition flex items-center space-x-2">
-                    <i class="fa-solid fa-wrench"></i>
-                    <span>Service Centre (Add Repair)</span>
+                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                    <span>2. Service Centre (Repair & Care)</span>
                 </button>
                 <button onclick="switchAdminSubtab('owner')" id="admin-sub-owner" class="admin-sub-btn px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition flex items-center space-x-2">
                     <i class="fa-solid fa-handshake"></i>
-                    <span>Owner (Transfer Custody)</span>
+                    <span>3. Device Owner (Pass It On)</span>
                 </button>
                 <button onclick="switchAdminSubtab('recycle')" id="admin-sub-recycle" class="admin-sub-btn px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition flex items-center space-x-2">
                     <i class="fa-solid fa-recycle"></i>
-                    <span>Recycling Facility (End-of-Life & Recovery)</span>
+                    <span>4. Recycling Depot (Salvage & Rebirth)</span>
                 </button>
             </div>
 
@@ -326,37 +346,37 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     
                     <!-- Register New Product Model -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
                         <div class="flex items-center space-x-3 mb-4 pb-3 border-b border-slate-800">
-                            <div class="w-8 h-8 rounded-lg bg-emerald-950 text-emerald-400 flex items-center justify-center font-bold">1</div>
+                            <div class="w-9 h-9 rounded-xl bg-emerald-950 border border-emerald-800 text-emerald-400 flex items-center justify-center font-bold">1</div>
                             <div>
                                 <h3 class="text-sm font-bold text-white">Create Shared Product Model</h3>
-                                <p class="text-xs text-slate-400">Specifications shared by thousands of physical units</p>
+                                <p class="text-xs text-slate-400">Enter specs once — shared by every unit produced</p>
                             </div>
                         </div>
 
-                        <form id="formCreateModel" onsubmit="handleCreateModel(event)" class="space-y-3 text-xs">
+                        <form id="formCreateModel" onsubmit="handleCreateModel(event)" class="space-y-3.5 text-xs">
                             <div>
-                                <label class="block text-slate-400 mb-1">Manufacturer</label>
+                                <label class="block text-slate-400 mb-1 font-medium">Manufacturer Company</label>
                                 <select id="modelManufacturerSelect" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white"></select>
                             </div>
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block text-slate-400 mb-1">Model ID</label>
+                                    <label class="block text-slate-400 mb-1 font-medium">Model ID</label>
                                     <input type="text" id="newModelId" placeholder="e.g. MOD-LEN-LOQ16" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-400 mb-1">Model Number</label>
+                                    <label class="block text-slate-400 mb-1 font-medium">Model Number</label>
                                     <input type="text" id="newModelNumber" placeholder="e.g. LOQ 16IRH8" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-slate-400 mb-1">Product Commercial Name</label>
+                                <label class="block text-slate-400 mb-1 font-medium">Product Commercial Name</label>
                                 <input type="text" id="newModelName" placeholder="e.g. Lenovo LOQ 16 Gaming Laptop" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                             </div>
                             <div class="grid grid-cols-3 gap-3">
                                 <div>
-                                    <label class="block text-slate-400 mb-1">Category</label>
+                                    <label class="block text-slate-400 mb-1 font-medium">Device Category</label>
                                     <select id="newModelType" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                                         <option value="Laptop">Laptop</option>
                                         <option value="Smartphone">Smartphone</option>
@@ -366,69 +386,69 @@
                                     </select>
                                 </div>
                                 <div>
-                                    <label class="block text-slate-400 mb-1">Carbon Footprint (kg CO2)</label>
+                                    <label class="block text-slate-400 mb-1 font-medium">Carbon (kg CO2e)</label>
                                     <input type="number" step="0.1" id="newModelCarbon" value="210.0" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-400 mb-1">Energy Rating</label>
+                                    <label class="block text-slate-400 mb-1 font-medium">Energy Star Label</label>
                                     <input type="text" id="newModelEnergy" value="Energy Star 8.0" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-slate-400 mb-1">Disassembly Manual URL</label>
-                                <input type="url" id="newModelManual" placeholder="https://example.com/manual.pdf" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono text-[11px]">
+                                <label class="block text-slate-400 mb-1 font-medium">Official Disassembly & Repair Manual URL</label>
+                                <input type="url" id="newModelManual" placeholder="https://example.com/repair-manual.pdf" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono text-[11px]">
                             </div>
-                            <button type="submit" class="w-full mt-2 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 rounded-xl transition">
-                                <i class="fa-solid fa-plus-circle mr-1"></i> Register Model in SQL
+                            <button type="submit" class="w-full mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold py-2.5 rounded-xl transition shadow-md">
+                                <i class="fa-solid fa-plus-circle mr-1.5"></i> Register Product Model in SQL
                             </button>
                         </form>
                     </div>
 
                     <!-- Register Individual Physical Item -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
                         <div class="flex items-center space-x-3 mb-4 pb-3 border-b border-slate-800">
-                            <div class="w-8 h-8 rounded-lg bg-teal-950 text-teal-400 flex items-center justify-center font-bold">2</div>
+                            <div class="w-9 h-9 rounded-xl bg-teal-950 border border-teal-800 text-teal-400 flex items-center justify-center font-bold">2</div>
                             <div>
-                                <h3 class="text-sm font-bold text-white">Issue Physical Product Item (DPP)</h3>
-                                <p class="text-xs text-slate-400">Instantiate serialized unit linked to model & components</p>
+                                <h3 class="text-sm font-bold text-white">Issue Physical Device & DPP</h3>
+                                <p class="text-xs text-slate-400">Instantiate a serialized unit with living passport</p>
                             </div>
                         </div>
 
-                        <form id="formCreateItem" onsubmit="handleCreateItem(event)" class="space-y-3 text-xs">
+                        <form id="formCreateItem" onsubmit="handleCreateItem(event)" class="space-y-3.5 text-xs">
                             <div>
-                                <label class="block text-slate-400 mb-1">Select Product Model</label>
+                                <label class="block text-slate-400 mb-1 font-medium">Select Product Model</label>
                                 <select id="itemModelSelect" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white"></select>
                             </div>
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block text-slate-400 mb-1">Product ID (Primary Key)</label>
+                                    <label class="block text-slate-400 mb-1 font-medium">Product ID</label>
                                     <input type="text" id="newItemId" placeholder="e.g. PROD-LOQ-004" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono uppercase">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-400 mb-1">Serial Number</label>
+                                    <label class="block text-slate-400 mb-1 font-medium">Unique Serial Number</label>
                                     <input type="text" id="newItemSerial" placeholder="e.g. LOQ-SN-2024-9981" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono">
                                 </div>
                             </div>
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block text-slate-400 mb-1">Manufacturing Date</label>
+                                    <label class="block text-slate-400 mb-1 font-medium">Manufacturing Date</label>
                                     <input type="date" id="newItemDate" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                                 </div>
                                 <div>
-                                    <label class="block text-slate-400 mb-1">State of Health (SOH %)</label>
+                                    <label class="block text-slate-400 mb-1 font-medium">Initial Health (SOH %)</label>
                                     <input type="number" id="newItemHealth" value="100" min="0" max="100" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-slate-400 mb-1">Initial Owner / Customer (Optional)</label>
+                                <label class="block text-slate-400 mb-1 font-medium">Initial Customer / Owner</label>
                                 <select id="itemOwnerSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white"></select>
                             </div>
-                            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-slate-400">
-                                <i class="fa-solid fa-circle-info text-emerald-400 mr-1"></i>
-                                Automatically creates baseline serialized Battery, Motherboard, and Display components with bill of materials.
+                            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
+                                <i class="fa-solid fa-circle-check text-emerald-400 mr-1.5"></i>
+                                Automatically generates modular sub-assembly records (Battery, Motherboard, Display) and hooks them to our circular material index.
                             </div>
-                            <button type="submit" class="w-full mt-2 bg-teal-600 hover:bg-teal-500 text-white font-semibold py-2 rounded-xl transition">
-                                <i class="fa-solid fa-fingerprint mr-1"></i> Provision Digital Passport
+                            <button type="submit" class="w-full mt-2 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-semibold py-2.5 rounded-xl transition shadow-md">
+                                <i class="fa-solid fa-fingerprint mr-1.5"></i> Mint Digital Passport
                             </button>
                         </form>
                     </div>
@@ -438,57 +458,57 @@
 
             <!-- 2. SERVICE CENTRE PANEL -->
             <div id="admin-panel-service" class="admin-panel hidden">
-                <div class="max-w-2xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
+                <div class="max-w-2xl mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
                     <div class="flex items-center space-x-3 mb-5 pb-3 border-b border-slate-800">
-                        <div class="w-10 h-10 rounded-xl bg-amber-950 text-amber-400 border border-amber-800/40 flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-2xl bg-amber-950 text-amber-400 border border-amber-800/40 flex items-center justify-center">
                             <i class="fa-solid fa-wrench text-lg"></i>
                         </div>
                         <div>
-                            <h3 class="text-base font-bold text-white">Record Maintenance & Repair Event</h3>
-                            <p class="text-xs text-slate-400">Log repairs, replacement parts, cost, and restore health grade</p>
+                            <h3 class="text-base font-bold text-white">Log a Life-Extending Repair</h3>
+                            <p class="text-xs text-slate-400">Every repair keeps a computer out of a landfill and restores its health</p>
                         </div>
                     </div>
 
                     <form id="formAddRepair" onsubmit="handleAddRepair(event)" class="space-y-4 text-xs">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-slate-400 mb-1">Product Item ID</label>
+                                <label class="block text-slate-400 mb-1 font-medium">Select Device to Repair</label>
                                 <select id="repairProductSelect" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"></select>
                             </div>
                             <div>
-                                <label class="block text-slate-400 mb-1">Authorized Service Centre</label>
+                                <label class="block text-slate-400 mb-1 font-medium">Authorized Service Hub</label>
                                 <select id="repairServiceCentreSelect" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white"></select>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-slate-400 mb-1">Repair Date</label>
+                                <label class="block text-slate-400 mb-1 font-medium">Service Date</label>
                                 <input type="date" id="repairDate" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                             </div>
                             <div>
-                                <label class="block text-slate-400 mb-1">Repair Cost (₹)</label>
+                                <label class="block text-slate-400 mb-1 font-medium">Service Cost (₹)</label>
                                 <input type="number" step="0.01" id="repairCost" placeholder="e.g. 2400" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                             </div>
                             <div>
-                                <label class="block text-slate-400 mb-1">Restored SOH (%)</label>
+                                <label class="block text-slate-400 mb-1 font-medium">Restored Health (SOH %)</label>
                                 <input type="number" id="repairNewHealth" value="95" min="0" max="100" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-slate-400 mb-1">Replaced Parts / Components</label>
-                            <input type="text" id="repairReplacedParts" placeholder="e.g. Battery pack swapped with OEM 60Wh Li-ion" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
+                            <label class="block text-slate-400 mb-1 font-medium">Replaced / Upgraded Components</label>
+                            <input type="text" id="repairReplacedParts" placeholder="e.g. Battery pack replaced with genuine OEM 60Wh module" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                         </div>
 
                         <div>
-                            <label class="block text-slate-400 mb-1">Technical Diagnosis & Work Description</label>
-                            <textarea id="repairDescription" rows="3" required placeholder="Describe the diagnosed defect and repair steps performed..." 
+                            <label class="block text-slate-400 mb-1 font-medium">Technician Notes & Diagnostic Log</label>
+                            <textarea id="repairDescription" rows="3" required placeholder="Describe what symptoms the user reported and what steps were performed to fix the unit..." 
                                       class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white placeholder-slate-600 focus:outline-none focus:border-amber-500"></textarea>
                         </div>
 
-                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-2.5 rounded-xl transition shadow-md">
-                            <i class="fa-solid fa-check-circle mr-1.5"></i> Commit Repair Record to DPP
+                        <button type="submit" class="w-full bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white font-semibold py-3 rounded-xl transition shadow-lg">
+                            <i class="fa-solid fa-circle-check mr-1.5"></i> Update Device Passport with Repair Record
                         </button>
                     </form>
                 </div>
@@ -496,41 +516,41 @@
 
             <!-- 3. OWNER TRANSFER PANEL -->
             <div id="admin-panel-owner" class="admin-panel hidden">
-                <div class="max-w-2xl mx-auto bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-lg">
+                <div class="max-w-2xl mx-auto bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
                     <div class="flex items-center space-x-3 mb-5 pb-3 border-b border-slate-800">
-                        <div class="w-10 h-10 rounded-xl bg-sky-950 text-sky-400 border border-sky-800/40 flex items-center justify-center">
+                        <div class="w-10 h-10 rounded-2xl bg-sky-950 text-sky-400 border border-sky-800/40 flex items-center justify-center">
                             <i class="fa-solid fa-handshake text-lg"></i>
                         </div>
                         <div>
-                            <h3 class="text-base font-bold text-white">Transfer Product Ownership</h3>
-                            <p class="text-xs text-slate-400">Record second-hand resale, donation, or enterprise fleet redeployment</p>
+                            <h3 class="text-base font-bold text-white">Pass Your Device Forward (Transfer Ownership)</h3>
+                            <p class="text-xs text-slate-400">Handing it down to a junior, selling second-hand, or donating? Keep the passport verified.</p>
                         </div>
                     </div>
 
                     <form id="formAddTransfer" onsubmit="handleAddTransfer(event)" class="space-y-4 text-xs">
                         <div>
-                            <label class="block text-slate-400 mb-1">Select Product Item</label>
+                            <label class="block text-slate-400 mb-1 font-medium">Select Device</label>
                             <select id="transferProductSelect" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"></select>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-slate-400 mb-1">New Owner</label>
+                                <label class="block text-slate-400 mb-1 font-medium">New Owner</label>
                                 <select id="transferNewOwnerSelect" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white"></select>
                             </div>
                             <div>
-                                <label class="block text-slate-400 mb-1">Transfer Date</label>
+                                <label class="block text-slate-400 mb-1 font-medium">Transfer Date</label>
                                 <input type="date" id="transferDate" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-slate-400 mb-1">Transfer Reason / Custody Notes</label>
-                            <input type="text" id="transferReason" placeholder="e.g. Certified refurbished resale to university student" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
+                            <label class="block text-slate-400 mb-1 font-medium">Context / Reason for Transfer</label>
+                            <input type="text" id="transferReason" placeholder="e.g. Second-hand resale to VIT student for semester project work" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                         </div>
 
-                        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-semibold py-2.5 rounded-xl transition shadow-md">
-                            <i class="fa-solid fa-arrow-right-arrow-left mr-1.5"></i> Record Ownership Transfer
+                        <button type="submit" class="w-full bg-gradient-to-r from-sky-600 to-teal-600 hover:from-sky-500 hover:to-teal-500 text-white font-semibold py-3 rounded-xl transition shadow-lg">
+                            <i class="fa-solid fa-arrow-right-arrow-left mr-1.5"></i> Confirm Ownership Handover
                         </button>
                     </form>
                 </div>
@@ -541,18 +561,18 @@
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     
                     <!-- A. Recycling Intake Form -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-lg">
                         <div class="flex items-center space-x-2 mb-4 pb-2 border-b border-slate-800 text-emerald-400">
                             <i class="fa-solid fa-truck-ramp-box"></i>
                             <h4 class="font-bold text-sm text-white">1. E-Waste Intake</h4>
                         </div>
                         <form id="formRecycleIntake" onsubmit="handleRecycleIntake(event)" class="space-y-3 text-xs">
                             <div>
-                                <label class="block text-slate-400 mb-1">End-of-Life Device</label>
+                                <label class="block text-slate-400 mb-1">Retired Device</label>
                                 <select id="recycleProductSelect" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"></select>
                             </div>
                             <div>
-                                <label class="block text-slate-400 mb-1">Recycling Facility</label>
+                                <label class="block text-slate-400 mb-1">Recovery Facility</label>
                                 <select id="recycleFacilitySelect" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white"></select>
                             </div>
                             <div>
@@ -569,7 +589,7 @@
                             </div>
                             <div>
                                 <label class="block text-slate-400 mb-1">Notes</label>
-                                <input type="text" id="recycleNotes" placeholder="Inspection notes..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
+                                <input type="text" id="recycleNotes" placeholder="Reason for retirement..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                             </div>
                             <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 rounded-xl transition">
                                 Record Intake in SQL
@@ -578,10 +598,10 @@
                     </div>
 
                     <!-- B. Salvage Component Form -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
-                        <div class="flex items-center space-x-2 mb-4 pb-2 border-b border-slate-800 text-amber-400">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-lg">
+                        <div class="flex items-center space-x-2 mb-4 pb-2 border-b border-slate-800 text-purple-400">
                             <i class="fa-solid fa-microchip"></i>
-                            <h4 class="font-bold text-sm text-white">2. Salvage Reusable Part</h4>
+                            <h4 class="font-bold text-sm text-white">2. Salvage Working Part</h4>
                         </div>
                         <form id="formSalvagePart" onsubmit="handleSalvagePart(event)" class="space-y-3 text-xs">
                             <div>
@@ -595,8 +615,8 @@
                             <div>
                                 <label class="block text-slate-400 mb-1">Condition Grade</label>
                                 <select id="salvageGrade" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
-                                    <option value="Grade A (Excellent)">Grade A (Excellent - Like New)</option>
-                                    <option value="Grade B (Good)">Grade B (Good - Minor Wear)</option>
+                                    <option value="Grade A (Excellent)">Grade A (Like New - Ready to Reuse)</option>
+                                    <option value="Grade B (Good)">Grade B (Minor Wear - Fully Functional)</option>
                                     <option value="Grade C (Refurbishable)">Grade C (Refurbishable)</option>
                                 </select>
                             </div>
@@ -604,17 +624,17 @@
                                 <label class="block text-slate-400 mb-1">Salvage Date</label>
                                 <input type="date" id="salvageDate" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                             </div>
-                            <button type="submit" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-2 rounded-xl transition">
+                            <button type="submit" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2 rounded-xl transition">
                                 Log Salvaged Component
                             </button>
                         </form>
                     </div>
 
                     <!-- C. Recover Material Form -->
-                    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                    <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-lg">
                         <div class="flex items-center space-x-2 mb-4 pb-2 border-b border-slate-800 text-teal-400">
                             <i class="fa-solid fa-gem"></i>
-                            <h4 class="font-bold text-sm text-white">3. Recover Critical Material</h4>
+                            <h4 class="font-bold text-sm text-white">3. Recover Precious Raw Material</h4>
                         </div>
                         <form id="formRecoverMaterial" onsubmit="handleRecoverMaterial(event)" class="space-y-3 text-xs">
                             <div>
@@ -622,7 +642,7 @@
                                 <input type="text" id="recoveryEventId" placeholder="e.g. REC-2024-001" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono">
                             </div>
                             <div>
-                                <label class="block text-slate-400 mb-1">Critical Material</label>
+                                <label class="block text-slate-400 mb-1">Reclaimed Material</label>
                                 <select id="recoveryMaterialSelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                                     <option value="MAT-GLD-04">Gold (MAT-GLD-04)</option>
                                     <option value="MAT-LIT-01">Lithium (MAT-LIT-01)</option>
@@ -634,7 +654,7 @@
                             </div>
                             <div class="grid grid-cols-2 gap-2">
                                 <div>
-                                    <label class="block text-slate-400 mb-1">Quantity (g)</label>
+                                    <label class="block text-slate-400 mb-1">Extracted Weight (g)</label>
                                     <input type="number" step="0.01" id="recoveryQuantity" placeholder="e.g. 0.45" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono">
                                 </div>
                                 <div>
@@ -647,7 +667,7 @@
                                 <input type="date" id="recoveryDate" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white">
                             </div>
                             <button type="submit" class="w-full bg-teal-600 hover:bg-teal-500 text-white font-semibold py-2 rounded-xl transition">
-                                Log Material Recovery
+                                Commit to Circular Materials
                             </button>
                         </form>
                     </div>
@@ -662,12 +682,14 @@
         <!-- ==================================================================== -->
         <section id="tab-analytics" class="tab-content hidden">
             <div class="mb-6">
-                <h2 class="text-xl font-bold text-white flex items-center gap-2">
-                    <i class="fa-solid fa-chart-line text-emerald-400"></i>
-                    <span>E-Waste Traceability & Circularity Analytics</span>
+                <div class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-300 text-xs font-semibold mb-2">
+                    <i class="fa-solid fa-earth-americas text-emerald-400"></i> Environmental Real-World Impact
+                </div>
+                <h2 class="text-2xl font-extrabold text-white">
+                    Closing the Loop on Electronic Waste
                 </h2>
                 <p class="text-sm text-slate-400 mt-0.5">
-                    Live SQL aggregate metrics supporting Sustainable Development Goals (SDG 9, 11, 12, 13).
+                    Live SQL aggregate metrics proving how Digital Product Passports directly contribute to UN Sustainable Development Goals (SDG 9, 11, 12, and 13).
                 </p>
             </div>
 
@@ -677,24 +699,24 @@
                     <span class="text-xs text-slate-400">Total Tracked</span>
                     <h3 id="statTotalProducts" class="text-2xl font-bold text-white mt-1">--</h3>
                     <div class="text-[10px] text-emerald-400 mt-1 flex items-center">
-                        <i class="fa-solid fa-laptop mr-1"></i> Active Units
+                        <i class="fa-solid fa-laptop mr-1"></i> Passports Active
                     </div>
                 </div>
 
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm">
                     <span class="text-xs text-slate-400">In Active Use</span>
                     <h3 id="statInUse" class="text-2xl font-bold text-emerald-400 mt-1">--</h3>
-                    <div class="text-[10px] text-slate-500 mt-1">Field deployed</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Everyday drivers</div>
                 </div>
 
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm">
                     <span class="text-xs text-slate-400">Under Repair</span>
                     <h3 id="statUnderRepair" class="text-2xl font-bold text-amber-400 mt-1">--</h3>
-                    <div class="text-[10px] text-slate-500 mt-1">At Service Hubs</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Getting cared for</div>
                 </div>
 
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm">
-                    <span class="text-xs text-slate-400">End-of-Life Recycled</span>
+                    <span class="text-xs text-slate-400">End-of-Life Reclaimed</span>
                     <h3 id="statRecycled" class="text-2xl font-bold text-sky-400 mt-1">--</h3>
                     <div class="text-[10px] text-slate-500 mt-1">Zero Landfill</div>
                 </div>
@@ -702,37 +724,37 @@
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm">
                     <span class="text-xs text-slate-400">Salvaged Parts</span>
                     <h3 id="statSalvaged" class="text-2xl font-bold text-teal-400 mt-1">--</h3>
-                    <div class="text-[10px] text-slate-500 mt-1">2nd Life Reused</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Second life in PCs</div>
                 </div>
 
                 <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-sm">
-                    <span class="text-xs text-slate-400">Total Extracted</span>
+                    <span class="text-xs text-slate-400">Strategic Metals</span>
                     <h3 id="statMaterialsWeight" class="text-2xl font-bold text-purple-400 mt-1">--</h3>
-                    <div class="text-[10px] text-slate-500 mt-1">Critical Raw Yield</div>
+                    <div class="text-[10px] text-slate-500 mt-1">Zero new mining</div>
                 </div>
             </div>
 
             <!-- Charts & Recovery Breakdown -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                 <!-- Chart 1: Material Recovery Yield -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
                     <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-2">
                         <i class="fa-solid fa-gem text-teal-400"></i>
-                        <span>Critical Materials Recovered From E-Waste</span>
+                        <span>Precious & Strategic Materials Reclaimed</span>
                     </h3>
-                    <p class="text-xs text-slate-400 mb-4">Quantity of strategic materials reclaimed via hydrometallurgical recycling</p>
+                    <p class="text-xs text-slate-400 mb-4">Pure grams extracted via hydrometallurgical recycling instead of mining ore</p>
                     <div class="h-64 relative">
                         <canvas id="materialsChart"></canvas>
                     </div>
                 </div>
 
                 <!-- Chart 2: Product Status Distribution -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
                     <h3 class="text-sm font-bold text-white mb-1 flex items-center gap-2">
                         <i class="fa-solid fa-chart-pie text-emerald-400"></i>
-                        <span>Lifecycle Phase Distribution</span>
+                        <span>Lifecycle Stages of Registered Electronics</span>
                     </h3>
-                    <p class="text-xs text-slate-400 mb-4">Status of registered physical devices in the SQL database</p>
+                    <p class="text-xs text-slate-400 mb-4">Distribution of items across daily use, repair shops, and recovery</p>
                     <div class="h-64 relative flex items-center justify-center">
                         <canvas id="statusChart"></canvas>
                     </div>
@@ -740,24 +762,24 @@
             </div>
 
             <!-- Table: Materials Recovery Master Audit -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
                 <h3 class="text-sm font-bold text-white mb-3 flex items-center justify-between">
                     <span class="flex items-center gap-2">
                         <i class="fa-solid fa-table-list text-emerald-400"></i>
-                        <span>Detailed Material Yields & Purity Audit</span>
+                        <span>Material Recovery Yield & Purity Audit</span>
                     </span>
-                    <span class="text-xs text-slate-500">Live SQL Group By Query</span>
+                    <span class="text-xs text-slate-500 font-mono">SQL Aggregated Result</span>
                 </h3>
                 <div class="overflow-x-auto">
                     <table class="w-full text-xs text-left">
                         <thead class="text-slate-400 border-b border-slate-800 uppercase font-semibold text-[11px]">
                             <tr>
                                 <th class="py-2.5 px-3">Material Name</th>
-                                <th class="py-2.5 px-3">Material ID</th>
-                                <th class="py-2.5 px-3">Total Recovered Yield</th>
+                                <th class="py-2.5 px-3">Catalog ID</th>
+                                <th class="py-2.5 px-3">Extracted Yield</th>
                                 <th class="py-2.5 px-3">Unit</th>
                                 <th class="py-2.5 px-3">Average Purity</th>
-                                <th class="py-2.5 px-3">Circular Application</th>
+                                <th class="py-2.5 px-3">Human Meaning & Circular Use</th>
                             </tr>
                         </thead>
                         <tbody id="materialsAuditTableBody" class="divide-y divide-slate-800/60 text-slate-300">
@@ -787,7 +809,7 @@
                 <div class="flex items-center space-x-2">
                     <button onclick="copyCurrentQuery()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700 transition flex items-center space-x-1.5">
                         <i class="fa-solid fa-copy"></i>
-                        <span>Copy Query</span>
+                        <span>Copy SQL</span>
                     </button>
                     <button onclick="executeLiveQuery()" class="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-lg shadow-emerald-500/20 transition flex items-center space-x-1.5">
                         <i class="fa-solid fa-play"></i>
@@ -798,7 +820,7 @@
 
             <!-- Pre-configured Queries Buttons -->
             <div class="mb-4">
-                <span class="text-xs font-semibold text-slate-400 block mb-2">Preset Complex Academic Queries:</span>
+                <span class="text-xs font-semibold text-slate-400 block mb-2">Preset Complex Relational Queries:</span>
                 <div class="flex flex-wrap gap-2 text-xs">
                     <button onclick="setQueryPreset('dpp_join')" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 transition">
                         1. Complete DPP Multi-Table JOIN
@@ -819,10 +841,10 @@
             </div>
 
             <!-- SQL Query Input Box -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg mb-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-lg mb-6">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-xs font-mono text-emerald-400 flex items-center gap-1.5">
-                        <i class="fa-solid fa-terminal"></i> SQL Query Console
+                        <i class="fa-solid fa-terminal"></i> Live SQL Console
                     </span>
                     <span class="text-[11px] text-slate-500">Supports standard SELECT, JOIN, GROUP BY, HAVING, WINDOW queries</span>
                 </div>
@@ -831,7 +853,7 @@
             </div>
 
             <!-- Live Query Results Table -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg mb-6">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-lg mb-6">
                 <div class="flex items-center justify-between mb-3">
                     <h3 class="text-sm font-bold text-white flex items-center gap-2">
                         <i class="fa-solid fa-table text-teal-400"></i>
@@ -848,7 +870,7 @@
             </div>
 
             <!-- Relational ER Diagram Reference Table -->
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+            <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-lg">
                 <h3 class="text-sm font-bold text-white mb-2 flex items-center gap-2">
                     <i class="fa-solid fa-diagram-project text-emerald-400"></i>
                     <span>Relational ER Diagram Entities & Normalization Schema</span>
@@ -858,8 +880,8 @@
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                        <div class="font-bold text-emerald-400 mb-1">STAKEHOLDER (ISA)</div>
+                    <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                        <div class="font-bold text-emerald-400 mb-1.5">STAKEHOLDER (ISA)</div>
                         <ul class="text-[11px] text-slate-400 space-y-0.5 font-mono">
                             <li>🔑 Stakeholder_ID (PK)</li>
                             <li>• Name, Phone, Email, Address</li>
@@ -870,8 +892,8 @@
                         </ul>
                     </div>
 
-                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                        <div class="font-bold text-emerald-400 mb-1">PRODUCT_MODEL & ITEM</div>
+                    <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                        <div class="font-bold text-emerald-400 mb-1.5">PRODUCT_MODEL & ITEM</div>
                         <ul class="text-[11px] text-slate-400 space-y-0.5 font-mono">
                             <li>🔑 Model_ID (PK), Manufacturer_ID (FK)</li>
                             <li>• Model_Number, Name, Type</li>
@@ -882,8 +904,8 @@
                         </ul>
                     </div>
 
-                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                        <div class="font-bold text-emerald-400 mb-1">COMPONENT & MATERIAL</div>
+                    <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                        <div class="font-bold text-emerald-400 mb-1.5">COMPONENT & MATERIAL</div>
                         <ul class="text-[11px] text-slate-400 space-y-0.5 font-mono">
                             <li>🔑 Component_ID (PK), Product_ID (FK)</li>
                             <li>• Component_Type, Serial_Number, Status</li>
@@ -894,8 +916,8 @@
                         </ul>
                     </div>
 
-                    <div class="p-3 bg-slate-950 rounded-xl border border-slate-800">
-                        <div class="font-bold text-emerald-400 mb-1">CIRCULAR LIFECYCLE</div>
+                    <div class="p-4 bg-slate-950 rounded-2xl border border-slate-800">
+                        <div class="font-bold text-emerald-400 mb-1.5">CIRCULAR LIFECYCLE</div>
                         <ul class="text-[11px] text-slate-400 space-y-0.5 font-mono">
                             <li>🔑 REPAIR (Cost, Date, Description)</li>
                             <li>🔑 OWNERSHIP_HISTORY (Transfers)</li>
@@ -912,51 +934,60 @@
     </main>
 
     <!-- QR SCANNER / CODE MODAL -->
-    <div id="qrModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative">
-            <button onclick="closeQRModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white">
+    <div id="qrModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl relative">
+            <button onclick="closeQRModal()" class="absolute right-4 top-4 text-slate-400 hover:text-white p-2">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
 
             <div class="text-center mb-5">
-                <div class="w-12 h-12 rounded-2xl bg-emerald-950 border border-emerald-700/60 text-emerald-400 flex items-center justify-center mx-auto mb-3">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white flex items-center justify-center mx-auto mb-3 shadow-lg shadow-emerald-500/20">
                     <i class="fa-solid fa-qrcode text-2xl"></i>
                 </div>
                 <h3 class="text-lg font-bold text-white">Digital Product Passport Scanner</h3>
-                <p class="text-xs text-slate-400 mt-1">Scan physical QR or select registered item from test pool</p>
+                <p class="text-xs text-slate-400 mt-1">Scan a physical item or select from the demo fleet</p>
             </div>
 
             <!-- Instant Select From Sample DPP Units -->
             <div class="space-y-2 mb-4">
                 <span class="text-xs font-semibold text-slate-400 block">Instant Sample QR Jump:</span>
                 <div class="grid grid-cols-1 gap-2">
-                    <button onclick="simulateScan('PROD-LOQ-001')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 transition flex items-center justify-between">
-                        <div>
-                            <div class="font-semibold text-white">Lenovo LOQ 15 Gaming Laptop</div>
-                            <div class="text-[11px] text-emerald-400 font-mono">ID: PROD-LOQ-001 (In Use)</div>
+                    <button onclick="simulateScan('PROD-LOQ-001')" class="text-left px-3.5 py-2.5 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 text-xs text-slate-300 transition flex items-center justify-between group">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-emerald-950 text-emerald-400 flex items-center justify-center font-bold">💻</div>
+                            <div>
+                                <div class="font-semibold text-white group-hover:text-emerald-400 transition">Lenovo LOQ 15 Gaming Laptop</div>
+                                <div class="text-[11px] text-emerald-400 font-mono">PROD-LOQ-001 • Aditya's Daily Driver</div>
+                            </div>
                         </div>
-                        <i class="fa-solid fa-chevron-right text-slate-600"></i>
+                        <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-emerald-400 transition"></i>
                     </button>
-                    <button onclick="simulateScan('PROD-LOQ-002')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 transition flex items-center justify-between">
-                        <div>
-                            <div class="font-semibold text-white">Lenovo LOQ 15 (Recycled Unit)</div>
-                            <div class="text-[11px] text-amber-400 font-mono">ID: PROD-LOQ-002 (Salvaged & Recovered)</div>
+                    <button onclick="simulateScan('PROD-LOQ-002')" class="text-left px-3.5 py-2.5 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 text-xs text-slate-300 transition flex items-center justify-between group">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-sky-950 text-sky-400 flex items-center justify-center font-bold">♻️</div>
+                            <div>
+                                <div class="font-semibold text-white group-hover:text-sky-400 transition">Lenovo LOQ 15 (Recycled Hero)</div>
+                                <div class="text-[11px] text-sky-400 font-mono">PROD-LOQ-002 • RAM Salvaged & Gold Recovered</div>
+                            </div>
                         </div>
-                        <i class="fa-solid fa-chevron-right text-slate-600"></i>
+                        <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-sky-400 transition"></i>
                     </button>
-                    <button onclick="simulateScan('PROD-IPH-001')" class="text-left px-3.5 py-2.5 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-800 text-xs text-slate-300 transition flex items-center justify-between">
-                        <div>
-                            <div class="font-semibold text-white">Apple iPhone 15 Pro</div>
-                            <div class="text-[11px] text-sky-400 font-mono">ID: PROD-IPH-001 (Owner: Amaan)</div>
+                    <button onclick="simulateScan('PROD-IPH-001')" class="text-left px-3.5 py-2.5 rounded-2xl bg-slate-950 hover:bg-slate-800/80 border border-slate-800 text-xs text-slate-300 transition flex items-center justify-between group">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-teal-950 text-teal-400 flex items-center justify-center font-bold">📱</div>
+                            <div>
+                                <div class="font-semibold text-white group-hover:text-teal-400 transition">Apple iPhone 15 Pro</div>
+                                <div class="text-[11px] text-teal-400 font-mono">PROD-IPH-001 • Amaan's Companion (98% SOH)</div>
+                            </div>
                         </div>
-                        <i class="fa-solid fa-chevron-right text-slate-600"></i>
+                        <i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-teal-400 transition"></i>
                     </button>
                 </div>
             </div>
 
             <!-- Custom Input -->
             <div class="pt-3 border-t border-slate-800">
-                <label class="block text-xs text-slate-400 mb-1.5">Or enter Item ID manually:</label>
+                <label class="block text-xs text-slate-400 mb-1.5">Or enter Product ID manually:</label>
                 <div class="flex gap-2">
                     <input type="text" id="manualScanInput" placeholder="PROD-..." class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white uppercase font-mono">
                     <button onclick="handleManualScan()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-4 py-2 rounded-xl transition">
@@ -968,7 +999,7 @@
     </div>
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-3 text-xs max-w-md">
+    <div id="toastNotification" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-slate-900 border border-slate-700 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 text-xs max-w-md">
         <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
         <span id="toastMessage" class="flex-1">Notification message</span>
     </div>
@@ -977,11 +1008,13 @@
     <footer class="mt-auto bg-slate-950 border-t border-slate-900 py-6 text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
             <div>
-                <p class="text-slate-400 font-medium">Digital Product Passport (DPP) E-Waste Lifecycle Traceability System</p>
-                <p class="text-[11px] mt-0.5">BACSE202 Database Systems • Vellore Institute of Technology (VIT)</p>
+                <p class="text-slate-300 font-semibold">EcoTrace Digital Product Passport (DPP) — E-Waste Lifecycle Traceability</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">BACSE202 Database Systems • Vellore Institute of Technology (VIT)</p>
             </div>
-            <div class="text-[11px] text-slate-400">
-                <span>Team: Aditya Priyan C (25BCE0662) & Amaan Abdullah Karuthedath (25BCE2701)</span>
+            <div class="text-[11px] text-slate-400 flex items-center gap-2">
+                <span>Made by <strong class="text-white">Aditya Priyan C</strong> & <strong class="text-white">Amaan Abdullah</strong></span>
+                <span>•</span>
+                <span class="text-emerald-400">VIT Vellore</span>
             </div>
         </div>
     </footer>
