@@ -96,9 +96,9 @@ Built specifically for coursework BACSE202 evaluation:
 | Product ID | Device | Lifecycle Status | Owner / Location | Key Highlight |
 |---|---|---|---|---|
 | **`PROD-LOQ-001`** | Lenovo LOQ 15 Gaming Laptop | **In Use** (SOH 94%) | Aditya Priyan C | 1 Repair (RAM Upgrade), active components |
-| **`PROD-IPH-001`** | Apple iPhone 15 Pro | **In Use** (SOH 98%) | Amaan Abdullah Karuthedath | Recycled cobalt battery & gold logic board |
+| **`PROD-IPH-001`** | Samsung Galaxy S24 Ultra| **In Use** (SOH 98%) | Amaan Abdullah Karuthedath | Recycled cobalt battery & gold logic board |
 | **`PROD-DEL-001`** | Dell XPS 13 Plus | **In Use** (SOH 91%) | VIT SCOPE Lab | Institutional deployment |
-| **`PROD-SAM-001`** | Samsung Galaxy S24 Ultra | **Recycled** (SOH 0%) | EcoRecycle Solutions Hub | Salvaged Dynamic AMOLED display |
+| **`PROD-SAM-001`** | Apple iPhone 15 Pro | **Recycled** (SOH 0%) | EcoRecycle Solutions Hub | Salvaged Dynamic AMOLED display |
 | **`PROD-ASU-001`** | ASUS ROG Swift 27" Monitor | **In Use** (SOH 96%) | VIT SCOPE Lab | High-efficiency OLED display |
 
 ---
