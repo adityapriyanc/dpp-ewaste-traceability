@@ -1,11 +1,8 @@
 # Digital Product Passport (DPP) — E-Waste Lifecycle Traceability System
-
-**Course:** BACSE202 - Database Systems  
-**Institution:** Vellore Institute of Technology (VIT), Vellore  
-**Team Members:**  
+**Team :-**  
 - **Aditya Priyan C** (Reg No: 25BCE0662)  
 - **Amaan Abdullah Karuthedath** (Reg No: 25BCE2701)  
-**Faculty Guide:** Prof. Saritha Murali  
+**Faculty Guide- :** Prof Saritha Murali  
 
 ---
 
