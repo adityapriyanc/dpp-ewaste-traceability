@@ -9,17 +9,17 @@
 
 ---
 
-## 🌟 Overview
+## Overview
 
-This project implements a full-stack, normalized relational SQL-based **Digital Product Passport (DPP)** system for consumer electronics lifecycle traceability and e-waste circularity management. 
+This project implements a full-stack, normalized relational SQL based **Digital Product Passport (DPP)** system for consumer electronics lifecycle traceability and e-waste circularity management. 
 
-It implements a full-stack, normalized relational SQL-based **Digital Product Passport (DPP)** system for consumer electronics lifecycle traceability and e-waste circularity management. 
+It implements a full stack, normalized relational SQL-based **Digital Product Passport (DPP)** system for consumer electronics lifecycle traceability and e-waste circularity management. 
 
 The system tracks physical electronics from **Manufacturing ➔ Retail Purchase & Ownership ➔ Maintenance & Service ➔ Secondary Resale/Transfers ➔ End-of-Life Decommissioning & Recycling (Parts Salvage & Critical Material Recovery)**.
 
 ---
 
-## 🗄️ Relational Database Architecture & ER Model
+## Relational Database Architecture & ER Model
 
 The database implements a normalized 3NF Entity-Relationship (ER) model designed for electronics circularity:
 
@@ -42,7 +42,7 @@ The database implements a normalized 3NF Entity-Relationship (ER) model designed
 
 ---
 
-## 🖥️ Website Features
+## Website Features
 
 ### 1. Product Catalogue
 - Browse electronic devices (Laptops, Smartphones, Monitors, Tablets).
@@ -91,7 +91,7 @@ Built specifically for coursework BACSE202 evaluation:
 
 ---
 
-## 🧪 Preloaded Test Units
+## Preloaded Test Units
 
 | Product ID | Device | Lifecycle Status | Owner / Location | Key Highlight |
 |---|---|---|---|---|
@@ -103,7 +103,7 @@ Built specifically for coursework BACSE202 evaluation:
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 dpp-ewaste-traceability/
