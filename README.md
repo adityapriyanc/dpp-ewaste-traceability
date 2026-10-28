@@ -15,11 +15,11 @@ This project implements a full-stack, normalized relational SQL based **Digital 
 
 It implements a full stack, normalized relational SQL-based **Digital Product Passport (DPP)** system for consumer electronics lifecycle traceability and e-waste circularity management. 
 
-The system tracks physical electronics from **Manufacturing ➔ Retail Purchase & Ownership ➔ Maintenance & Service ➔ Secondary Resale/Transfers ➔ End-of-Life Decommissioning & Recycling (Parts Salvage & Critical Material Recovery)**.
+The system tracks physical electronics from **Manufacturing -> Retail Purchase & Ownership -> Maintenance and Service -> Secondary Resale/Transfers -> End of Life Decommissioning and Recycling (Parts Salvage & Critical Material Recovery)**.
 
 ---
 
-## Relational Database Architecture & ER Model
+## Relational Database Architecture and ER Model
 
 The database implements a normalized 3NF Entity-Relationship (ER) model designed for electronics circularity:
 
