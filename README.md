@@ -8,7 +8,7 @@
 
 ## Overview
 
-This project implements a full-stack, normalized relational SQL based **Digital Product Passport (DPP)** system for consumer electronics lifecycle traceability and e-waste circularity management. 
+In this project, we basically implement a full stack, normalized relational SQL based **Digital Product Passport (DPP)** system for consumer electronics lifecycle traceability and e-waste circularity management. 
 
 It implements a full stack, normalized relational SQL-based **Digital Product Passport (DPP)** system for consumer electronics lifecycle traceability and e-waste circularity management. 
 
